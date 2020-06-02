@@ -1,12 +1,7 @@
 #include <xc.h>
 #include "ADC.h"
 #include "main.h"
-
-
-unsigned char ADCResultIndex = 0;
-static unsigned int ADCResult[6];
-unsigned char ADCConversionFinishedFlag;
-
+ //TOTO
 /****************************************************************************************************/
 // Configuration ADC
 /****************************************************************************************************/
