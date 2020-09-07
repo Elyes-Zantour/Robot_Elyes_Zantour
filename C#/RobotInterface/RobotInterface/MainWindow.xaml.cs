@@ -22,24 +22,36 @@ namespace RobotInterface
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-
-		SerialPort serialPort1;
+		string receivedText;
+		ReliableSerialPort serialPort1;
+		
 
 		private void SendMessage()
 		{
 
 			textBoxReception.Text = "Reçu : " + textBoxEmission.Text + "\n" + textBoxReception.Text;
-			textBoxEmission.Text = null;
 			serialPort1.WriteLine(textBoxEmission.Text);
+			textBoxEmission.Text = null;
 		}
 
 		public MainWindow()
 		{
-			
 			serialPort1 = new ReliableSerialPort("COM8", 115200, Parity.None, 8, StopBits.One);
 			serialPort1.Open();
-			InitializeComponent();
+			serialPort1.DataReceived += SerialPort1_DataReceived1;
+			
+			
 		}
+
+		private void SerialPort1_DataReceived1(object sender, DataReceivedArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SerialPort1_DataReceived(object sender, DataReceivedArgs e)
+		{ }
+		
+		
 
 		private void buttonEnvoyer_Click(object sender, RoutedEventArgs e)
 		{
