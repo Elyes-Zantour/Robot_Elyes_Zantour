@@ -50,3 +50,10 @@ C:\Users\TP_EO_6\Downloads\robot-florian-reimat-master\RobotWPF\RobotWPF\obj\Deb
 C:\Users\TP_EO_6\Downloads\robot-florian-reimat-master\RobotWPF\RobotWPF\obj\Debug\RobotWPF.csproj.CopyComplete
 C:\Users\TP_EO_6\Downloads\robot-florian-reimat-master\RobotWPF\RobotWPF\obj\Debug\RobotWPF.exe
 C:\Users\TP_EO_6\Downloads\robot-florian-reimat-master\RobotWPF\RobotWPF\obj\Debug\RobotWPF.pdb
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\RobotWPF.csprojAssemblyReference.cache
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\MainWindow.g.cs
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\App.g.cs
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\RobotWPF_MarkupCompile.cache
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\RobotWPF_MarkupCompile.lref
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\RobotWPF.exe
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\RobotWPF.pdb
