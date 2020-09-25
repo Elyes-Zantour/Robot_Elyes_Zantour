@@ -10,6 +10,7 @@
 #include "main.h"
 #include "Toolbox.h"
 #include "etats.h"
+#include "UART.h"
 
 int main(void) {
 
@@ -20,6 +21,7 @@ int main(void) {
     InitTimer4();
     InitADC1();
     InitPWM();
+    InitUART();
 
     unsigned int *result = ADCGetResult();
     int ADCValue0 = 0, ADCValue1 = 0, ADCValue2 = 0, ADCValue3 = 0, ADCValue4 = 0, ADCValue5 = 0;
