@@ -13,8 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO.Ports;
-using ExtendedSerialPort;
 using System.Windows.Threading;
+using ExtendedSerialPort;
 
 
 namespace RobotWPF

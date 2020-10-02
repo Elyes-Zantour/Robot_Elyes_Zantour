@@ -9,8 +9,3 @@ C:\Users\Valentin\Desktop\ExtendedSerialPort\bin\Debug\ExtendedSerialPort.pdb
 C:\Users\Valentin\Desktop\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.csprojAssemblyReference.cache
 C:\Users\Valentin\Desktop\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.dll
 C:\Users\Valentin\Desktop\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.pdb
-C:\GitHub\Robot_Elyes_Zantour\C#\ExtendedSerialPort\bin\Debug\ExtendedSerialPort.dll
-C:\GitHub\Robot_Elyes_Zantour\C#\ExtendedSerialPort\bin\Debug\ExtendedSerialPort.pdb
-C:\GitHub\Robot_Elyes_Zantour\C#\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.csprojAssemblyReference.cache
-C:\GitHub\Robot_Elyes_Zantour\C#\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.dll
-C:\GitHub\Robot_Elyes_Zantour\C#\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.pdb

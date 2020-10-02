@@ -22,6 +22,8 @@ int main(void) {
     InitADC1();
     InitPWM();
     InitUART();
+    SendMessageDirect ((unsigned char *) " Bonjour",7 ) ;
+  
 
     unsigned int *result = ADCGetResult();
     int ADCValue0 = 0, ADCValue1 = 0, ADCValue2 = 0, ADCValue3 = 0, ADCValue4 = 0, ADCValue5 = 0;

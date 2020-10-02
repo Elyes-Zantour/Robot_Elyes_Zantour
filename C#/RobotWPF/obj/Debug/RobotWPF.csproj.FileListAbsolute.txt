@@ -57,3 +57,13 @@ C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\RobotWPF_MarkupCompile.cache
 C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\RobotWPF_MarkupCompile.lref
 C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\RobotWPF.exe
 C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\RobotWPF.pdb
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\bin\Debug\RobotWPF.exe.config
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\bin\Debug\RobotWPF.exe
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\bin\Debug\RobotWPF.pdb
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\bin\Debug\ExtendedSerialPort.dll
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\bin\Debug\ExtendedSerialPort.pdb
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\MainWindow.baml
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\RobotWPF.g.resources
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\RobotWPF.Properties.Resources.resources
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\RobotWPF.csproj.GenerateResource.cache
+C:\GitHub\Robot_Elyes_Zantour\C#\RobotWPF\obj\Debug\RobotWPF.csproj.CopyComplete
