@@ -11,7 +11,7 @@
 #include "Toolbox.h"
 #include "etats.h"
 #include "UART.h"
-
+#include  "CB_TX1.h"
 int main(void) {
 
     InitOscillator();
@@ -62,7 +62,7 @@ int main(void) {
                 volts=((float)result[3])*3.3/4096*3.2;
                 robotState.distanceTelemetreGauche2 = 34/volts-5;
             }
-        //SendMessageDirect((unsigned char *)"Bonjour", 7 ) ;
+        SendMessageDirect((unsigned char *)"Bonjour", 7 ) ;
         //__delay32(40000000);
 
     } // fin while
