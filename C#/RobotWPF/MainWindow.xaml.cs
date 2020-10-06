@@ -91,7 +91,7 @@ namespace RobotWPF
                             run.Foreground = new SolidColorBrush(Colors.White);
                         }
                         break;
-                    case StateReception.CheckSum:
+                    case StateReceptdion.CheckSum:
                         run.Foreground = new SolidColorBrush(Colors.White);
                         break;
                         

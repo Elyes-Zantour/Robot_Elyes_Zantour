@@ -59,7 +59,7 @@ unsigned char CB_TX1_IsTranmitting ( void)
 }
 int CB_TX1_RemainingSize ( void)
 {
-int rSize= CBTX1_BUFFER_SIZE- cbTx1Head + cbTx1Tail;
+int rSize= CBTX1_BUFFER_SIZE- (cbTx1Head + cbTx1Tail);
 
 return rSize ;
 }
