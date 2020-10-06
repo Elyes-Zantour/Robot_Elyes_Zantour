@@ -16,7 +16,7 @@ void InitUART(void)
     U1STAbits.UTXISEL0 = 0;
     U1STAbits.UTXISEL1 = 0;
     IFS0bits.U1TXIF = 0;
-    IEC0bits.U1TXIE = 0;
+    IEC0bits.U1TXIE = 1;
     
     U1STAbits.URXISEL = 0;
     IFS0bits.U1RXIF = 0;

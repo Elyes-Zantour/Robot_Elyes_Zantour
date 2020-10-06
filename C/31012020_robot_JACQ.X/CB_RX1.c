@@ -61,14 +61,16 @@ while ( U1STAbits .URXDA == 1 )
 int CB_RX1_GetRemainingSize ( void)
 {
     int rSizeRecep ;   
-    rSizeRecep = CBRX1_BUFFER_SIZE- cbRx1Head + cbRx1Tail;
+    rSizeRecep = CBRX1_BUFFER_SIZE- CB_RX1_GetDataSize();
     return rSizeRecep ;
 }
 int CB_RX1_GetDataSize ( void)
 {
     int rSizeRecep ;
-   rSizeRecep= cbRx1Head + cbRx1Tail;
-    
+    if (cbRx1Tail>cbRx1Head)
+        rSizeRecep= CBRX1_BUFFER_SIZE- (cbRx1Tail+cbRx1Head); 
+    else 
+        rSizeRecep = cbRx1Head-cbRx1Tail;
     return rSizeRecep ;
 }
 
