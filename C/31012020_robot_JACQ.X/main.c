@@ -65,9 +65,9 @@ int main(void) {
                 robotState.distanceTelemetreGauche2 = 34/volts-5;
             }
       int i ;
-    for ( i =0; i< CB_RX1_GetDataSize ( ) ; i++)
+    for ( i =0; i< CB_RX1_GetDataSize(); i++)
     {
-        unsigned char c = CB_RX1_Get ( ) ;
+        unsigned char c = CB_RX1_Get() ;
         SendMessage(&c,1) ;
     }
     __delay32 (1000) ;

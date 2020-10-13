@@ -351,10 +351,13 @@ namespace RobotWPF
         }
     }
 }
-/*byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte [] msgPayload)
+    byte CalculateChecksum (int msgFunction, 
+        int msgPayloadLength, byte[]msgPayload)
 {
     byte checksum = 0xFE;
     int i;
+    checksum = (byte)(checksum ^ msgFunction);
+    checksum = (byte)(checksum ^ msgPayloadLength);
     for (i = 0; i<msgPayloadLength;i++)
-        checksum ^= msgPayload[msgFunction];
-}*/
+        checksum ^= msgPayload[i];
+}
