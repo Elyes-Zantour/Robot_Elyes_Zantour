@@ -7,11 +7,11 @@
 
 void InitUART(void)
 {
-    U1MODEbits.STSEL = 0;
-    U1MODEbits.PDSEL = 0;
-    U1MODEbits.ABAUD = 0;
-    U1MODEbits.BRGH = 1;
-    U1BRG = BRGVAL;
+    U1MODEbits.STSEL = 0; // 1-stop bit
+    U1MODEbits.PDSEL = 0; // No Parity, 8-data bits
+    U1MODEbits.ABAUD = 0; // Auto-Baud Disabled
+    U1MODEbits.BRGH = 1; // Low Speed mode
+    U1BRG = BRGVAL;// BAUD Rate Setting
     
     U1STAbits.UTXISEL0 = 0;
     U1STAbits.UTXISEL1 = 0;
@@ -35,6 +35,8 @@ void SendMessageDirect  (unsigned char *message, int length)
         U1TXREG = *(message)++;
     }
 }
+
+
 
 //void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void)
 //{

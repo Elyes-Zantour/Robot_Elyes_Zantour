@@ -38,13 +38,14 @@ namespace RobotInterface
             timerAffichage.Interval = new TimeSpan(0, 0, 0, 0, 20);
             timerAffichage.Tick += TimerAffichageTick;
             timerAffichage.Start();
+
         }
 
         private void TimerAffichageTick(object sender, EventArgs e)
         {
-            if(byteListReceived.Count > 0)
+            if (byteListReceived.Count > 0)
                 textBoxReception.Text += "0x" + byteListReceived.Dequeue().ToString("X2") + " ";
-            receivedText = null;
+                receivedText = null;
         }
 
         private void buttonEnvoyer_Click(object sender, RoutedEventArgs e)
@@ -54,15 +55,17 @@ namespace RobotInterface
 
         private void SendMessage()
         {
-            serialPort1.WriteLine(textBoxEmission.Text);
+            serialPort1.Write(textBoxEmission.Text);
             textBoxEmission.Text = null;
         }
 
         private void SerialPort1_DataReceived(object sender, DataReceivedArgs e)
         {
             //receivedText += Encoding.UTF8.GetString(e.Data, 0, e.Data.Length);
-            foreach (byte b in e.Data)
-                byteListReceived.Enqueue(b);
+            for (int i = 0; i < e.Data.Length; i++)
+            {
+                byteListReceived.Enqueue(e.Data[i]);
+            }
         }
 
 
@@ -73,13 +76,50 @@ namespace RobotInterface
 
         private void buttonTest_Click(object sender, RoutedEventArgs e)
         {
-            byte[] byteList = new byte[20];
-            for (int i = 0; i < 20; i++)
-            {
-                byteList[i] = (byte)(2 * i);
-            }
-            serialPort1.Write(byteList, 0, byteList.Count());
+            //byte[] byteList = new byte[20];
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    byteList[i] = (byte)(2 * i);
+            //}
+            //serialPort1.Write(byteList, 0, byteList.Count());
+            string TestString = "Bonjour";
+            byte[] array = Encoding.ASCII.GetBytes(TestString);
+            UartEncodeAndSendMessage(0x0080, 7, array);
+        }
+    
+        byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
+        {
+            byte cheksum = 0xFE;
+
+            cheksum = (byte)(cheksum ^ msgFunction);
+            cheksum = (byte)(cheksum ^ msgPayloadLength);
+
+            for (int i = 0; i < msgPayloadLength; i++)
+                cheksum ^= msgPayload[i];
+
+            return cheksum;
+        }
+       void UartEncodeAndSendMessage(ushort msgFunction, ushort msgPayloadLength, byte[] msgPayload)
+        {
+            int i = 0, j = 0;
+            byte[] msg = new byte[ 6 + msgPayloadLength];
+
+            msg[i++] = 0xFE;
+
+            msg[i++] = (byte)(msgFunction >> 8);
+            msg[i++] = (byte)msgFunction;
+
+            msg[i++] = (byte)(msgPayloadLength >> 8);
+            msg[i++] = (byte)msgPayloadLength;
+
+            for (j = 0; j < msgPayloadLength; j++)
+                msg[i++] = msgPayload[j];
+
+            msg[i++] = CalculateChecksum(msgFunction, msgPayloadLength, msgPayload);
+
+            serialPort1.Write(msg, 0, msg.Length);
         }
     }
+
 }
 

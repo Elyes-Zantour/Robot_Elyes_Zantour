@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "CB_RX1.h"
+
 #define CBRX1_BUFFER_SIZE 128
 
-int cbRx1Head ;
-int cbRx1Tail ;
+int cbRx1Head=0 ;
+int cbRx1Tail=0 ;
 unsigned char cbRx1Buffer [CBRX1_BUFFER_SIZE ] ;
 
 
@@ -39,20 +40,21 @@ if ( cbRx1Head!= cbRx1Tail )
 else
     return 0 ;
 }
+
 void __attribute__ ((interrupt, no_auto_psv)) _U1RXInterrupt (void) {
 IFS0bits.U1RXIF = 0 ; // clear RXinterrutflag
 /* check for receive errors */
-if ( U1STAbits .FERR == 1 ) 
+if ( U1STAbits.FERR == 1 ) 
 {
-    U1STAbits .FERR = 0 ;
+    U1STAbits.FERR = 0 ;
 }
 /* must clear the over runerror to keep uartreceiving */
-if ( U1STAbits .OERR == 1 )
+if ( U1STAbits.OERR == 1 )
 {
-    U1STAbits .OERR = 0 ;
+    U1STAbits.OERR = 0 ;
 }
 /* get the data */
-while ( U1STAbits .URXDA == 1 )
+while ( U1STAbits.URXDA == 1 )
 {
     CB_RX1_Add(U1RXREG) ;
 }
@@ -60,17 +62,13 @@ while ( U1STAbits .URXDA == 1 )
 
 int CB_RX1_GetRemainingSize ( void)
 {
-    int rSizeRecep ;   
-    rSizeRecep = CBRX1_BUFFER_SIZE- CB_RX1_GetDataSize();
-    return rSizeRecep ;
+   if (cbRx1Head > cbRx1Tail)
+        return CBRX1_BUFFER_SIZE - (cbRx1Head - cbRx1Tail);
+    else
+        return CBRX1_BUFFER_SIZE - (cbRx1Tail - cbRx1Head);
 }
 int CB_RX1_GetDataSize ( void)
 {
-    int rSizeRecep ;
-    if (cbRx1Tail>cbRx1Head)
-        rSizeRecep= CBRX1_BUFFER_SIZE- (cbRx1Tail+cbRx1Head); 
-    else 
-        rSizeRecep = cbRx1Head-cbRx1Tail;
-    return rSizeRecep ;
+    return CBRX1_BUFFER_SIZE - CB_RX1_GetRemainingSize();
 }
 

@@ -16,6 +16,7 @@
       <itemPath>UART.h</itemPath>
       <itemPath>CB_TX1.h</itemPath>
       <itemPath>CB_RX1.h</itemPath>
+      <itemPath>UART_protocole.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -36,6 +37,7 @@
       <itemPath>UART.c</itemPath>
       <itemPath>CB_TX1.c</itemPath>
       <itemPath>CB_RX1.c</itemPath>
+      <itemPath>UART_protocole.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -263,6 +265,7 @@
         <property key="UART 3" value="true"/>
         <property key="UART 4" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>
