@@ -5,9 +5,16 @@
         <group>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/UART_protocole.c</file>
 =======
 >>>>>>> parent of 1eb04b9... a
+=======
+            <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/PWM.c</file>
+            <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/UART_protocole.c</file>
+            <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/main.c</file>
+            <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/ChipConfig.c</file>
+>>>>>>> parent of 4962713... 15/10/2020
 =======
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/PWM.c</file>
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/UART_protocole.c</file>
@@ -29,6 +36,7 @@
 <<<<<<< HEAD
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/IO.c</file>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/PWM.c</file>
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/main.c</file>
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/ChipConfig.c</file>
@@ -37,6 +45,8 @@
 =======
 >>>>>>> parent of 1eb04b9... a
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/Toolbox.c</file>
+=======
+>>>>>>> parent of 4962713... 15/10/2020
 =======
 >>>>>>> parent of 4962713... 15/10/2020
         </group>

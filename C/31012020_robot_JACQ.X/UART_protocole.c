@@ -41,8 +41,11 @@ unsigned char CalculateChecksum(unsigned short int msgFunction, unsigned short i
 
           
 <<<<<<< HEAD
+<<<<<<< HEAD
         }
 =======
+=======
+>>>>>>> parent of 4962713... 15/10/2020
         }
  
  public enum StateReception
@@ -93,5 +96,9 @@ private void DecodeMessage (byte c)
     default :
        rcvState = StateReception.Waiting ;
     break ;
+<<<<<<< HEAD
+    }
+>>>>>>> parent of 4962713... 15/10/2020
+=======
     }
 >>>>>>> parent of 4962713... 15/10/2020
