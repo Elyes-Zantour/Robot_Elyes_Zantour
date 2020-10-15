@@ -40,4 +40,58 @@ unsigned char CalculateChecksum(unsigned short int msgFunction, unsigned short i
             SendMessage(msg,i);
 
           
+<<<<<<< HEAD
         }
+=======
+        }
+ 
+ public enum StateReception
+{
+    Waiting ,
+    FunctionMSB ,
+    FunctionLSB ,
+    PayloadLengthMSB ,
+    PayloadLengthLSB ,
+    Payload ,
+    CheckSum
+}
+StateReceptionrcvState = StateReception.Waiting ;
+int msgDecodedFunction = 0 ;
+int msgDecodedPayloadLength = 0 ;
+byte [] msgDecodedPayload ;
+int msgDecodedPayloadIndex = 0 ;
+private void DecodeMessage (byte c)
+{
+    switch ( rcvState )
+{
+        case StateReception.Waiting :
+
+            break ;
+        case StateReception.FunctionMSB :
+
+            break ;
+        case StateReception.FunctionLSB :
+
+            break ;
+        case StateReception.PayloadLengthMSB :
+        
+            break ;
+        case StateReception.PayloadLengthLSB :
+
+            break ;
+        case StateReception.Payload :
+
+            break ;
+        case StateReception.CheckSum :
+
+        if ( calculatedChecksum == receivedChecksum )
+            {
+// Succe s s , on a un message v a l i d e
+            }
+
+            break ;
+    default :
+       rcvState = StateReception.Waiting ;
+    break ;
+    }
+>>>>>>> parent of 4962713... 15/10/2020

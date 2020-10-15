@@ -4,13 +4,22 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/UART_protocole.c</file>
 =======
 >>>>>>> parent of 1eb04b9... a
+=======
+            <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/PWM.c</file>
+            <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/UART_protocole.c</file>
+            <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/main.c</file>
+            <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/ChipConfig.c</file>
+>>>>>>> parent of 4962713... 15/10/2020
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/IO.h</file>
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/IO.c</file>
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/main.c</file>
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/CB_RX1.c</file>
+            <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/etats.c</file>
+            <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/Toolbox.c</file>
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/CB_TX1.c</file>
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/ChipConfig.c</file>
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/etats.c</file>
@@ -19,6 +28,7 @@
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/timer.c</file>
 <<<<<<< HEAD
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/IO.c</file>
+<<<<<<< HEAD
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/PWM.c</file>
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/main.c</file>
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/ChipConfig.c</file>
@@ -27,6 +37,8 @@
 =======
 >>>>>>> parent of 1eb04b9... a
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/Toolbox.c</file>
+=======
+>>>>>>> parent of 4962713... 15/10/2020
         </group>
     </open-files>
 </project-private>
