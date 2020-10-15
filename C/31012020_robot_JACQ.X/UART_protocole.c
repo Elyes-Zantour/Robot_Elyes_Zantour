@@ -4,8 +4,6 @@
 #include "CB_RX1.h"
 #include "CB_TX1.h"
 #include "UART.h"
-#include "CB_TX1.h"
-#include "CB_TX1.h"
 #include "UART_protocole.h"
 
 unsigned char CalculateChecksum(unsigned short int msgFunction, unsigned short int msgPayloadLength, unsigned char* msgPayload)
@@ -20,7 +18,7 @@ unsigned char CalculateChecksum(unsigned short int msgFunction, unsigned short i
     
     return checksum;
 }
-void UartEncodeAndSendMessage(unsigned short int msgFunction, unsigned short msgPayloadLength, unsigned char* msgPayload)
+ void UartEncodeAndSendMessage(unsigned short int msgFunction, unsigned short msgPayloadLength, unsigned char* msgPayload)
         {
             int i=0, j =0;
            unsigned char msg[ 6 + msgPayloadLength];
@@ -40,4 +38,6 @@ void UartEncodeAndSendMessage(unsigned short int msgFunction, unsigned short msg
             msg[i++] = CalculateChecksum(msgFunction, msgPayloadLength, msgPayload);
             
             SendMessage(msg,i);
-    }
+
+          
+        }
