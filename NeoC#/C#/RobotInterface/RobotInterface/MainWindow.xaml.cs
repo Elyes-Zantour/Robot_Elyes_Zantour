@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
+using System.Windows.Input; 
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -45,7 +45,7 @@ namespace RobotInterface
         {
             if (byteListReceived.Count > 0)
                 textBoxReception.Text += "0x" + byteListReceived.Dequeue().ToString("X2") + " ";
-                receivedText = null;
+            receivedText = null;
         }
 
         private void buttonEnvoyer_Click(object sender, RoutedEventArgs e)
@@ -86,7 +86,7 @@ namespace RobotInterface
             byte[] array = Encoding.ASCII.GetBytes(TestString);
             UartEncodeAndSendMessage(0x0080, 7, array);
         }
-    
+
         byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
         {
             byte cheksum = 0xFE;
@@ -99,10 +99,10 @@ namespace RobotInterface
 
             return cheksum;
         }
-       void UartEncodeAndSendMessage(ushort msgFunction, ushort msgPayloadLength, byte[] msgPayload)
+        void UartEncodeAndSendMessage(ushort msgFunction, ushort msgPayloadLength, byte[] msgPayload)
         {
             int i = 0, j = 0;
-            byte[] msg = new byte[ 6 + msgPayloadLength];
+            byte[] msg = new byte[6 + msgPayloadLength];
 
             msg[i++] = 0xFE;
 
@@ -119,7 +119,70 @@ namespace RobotInterface
 
             serialPort1.Write(msg, 0, msg.Length);
         }
+        public enum StateReception
+        {
+            Waiting,
+            FunctionMSB,
+            FunctionLSB,
+            PayloadLengthMSB,
+            PayloadLengthLSB,
+            Payload,
+            CheckSum
+        }
+        StateReception rcvState = StateReception.Waiting;
+        int msgDecodedFunction = 0;
+        int msgDecodedPayloadLength = 0;
+        byte[] msgDecodedPayload;
+        int msgDecodedPayloadIndex = 0;
+        private void DecodeMessage(byte c)
+        {
+            switch (rcvState)
+            {
+                case StateReception.Waiting:
+                    if (c == 0xFE)
+                        rcvState = StateReception.FunctionMSB;
+                    break;
+                case StateReception.FunctionMSB:
+                    msgDecodedFunction += c;
+                    msgDecodedFunction <<= 8;
+                    rcvState = StateReception.FunctionLSB;
+                    break;
+                case StateReception.FunctionLSB:
+                    msgDecodedFunction += c;
+                    rcvState = StateReception.PayloadLengthMSB;
+                    break;
+                case StateReception.PayloadLengthMSB:
+                    msgDecodedFunction += c;
+                    msgDecodedFunction <<= 8;
+                    rcvState = StateReception.PayloadLengthLSB;
+                    break;
+                case StateReception.PayloadLengthLSB:
+                    msgDecodedFunction += c;
+                    msgDecodedPayload = new byte[msgDecodedPayloadLength];
+                    if (msgDecodedPayloadLength == 0)
+                        rcvState = StateReception.CheckSum;
+                    else
+                        rcvState = StateReception.Payload;
+                    break;
+                case StateReception.Payload:
+                    msgDecodedPayload[msgDecodedPayloadIndex++] = c;
+                    if (msgDecodedPayloadIndex == msgDecodedPayloadLength)
+                        rcvState = StateReception.CheckSum;
+                    break;
+                case StateReception.CheckSum:
+
+
+
+
+
+                    break;
+                default:
+                    rcvState = StateReception.Waiting;
+                    break;
+            }
+        }
+
+        }
     }
 
-}
 

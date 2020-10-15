@@ -13,8 +13,6 @@ extern "C" {
 #endif
   unsigned char CalculateChecksum(unsigned short int msgFunction, unsigned short int msgPayloadLength, unsigned char* msgPayload);
  void UartEncodeAndSendMessage(unsigned short int msgFunction, unsigned short msgPayloadLength, unsigned char* msgPayload);
-
-
 #ifdef	__cplusplus
 }
 #endif
