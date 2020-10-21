@@ -20,6 +20,7 @@ unsigned char CalculateChecksum(unsigned short int msgFunction, unsigned short i
     
     return checksum;
 }
+
  void UartEncodeAndSendMessage(unsigned short int msgFunction, unsigned short msgPayloadLength, unsigned char* msgPayload)
         {
             int i=0, j =0;
@@ -43,3 +44,55 @@ unsigned char CalculateChecksum(unsigned short int msgFunction, unsigned short i
 
           
         }
+
+ enum StateReception
+{
+    Waiting ,
+    FunctionMSB ,
+    FunctionLSB ,
+    PayloadLengthMSB ,
+    PayloadLengthLSB ,
+    Payload ,
+    CheckSum
+}
+
+ 
+ StateReceptionrcvState = StateReception.Waiting ;
+int msgDecodedFunction = 0 ;
+int msgDecodedPayloadLength = 0 ;
+unsigned char msgDecodedPayload[] ;
+int msgDecodedPayloadIndex = 0 ;
+void DecodeMessage (char  c)
+{
+    switch ( rcvState )
+{
+        case StateReception.Waiting :
+
+            break ;
+        case StateReception.FunctionMSB :
+
+            break ;
+        case StateReception.FunctionLSB :
+
+            break ;
+        case StateReception.PayloadLengthMSB :
+        
+            break ;
+        case StateReception.PayloadLengthLSB :
+
+            break ;
+        case StateReception.Payload :
+
+            break ;
+        case StateReception.CheckSum :
+
+        if ( CalculateChecksum == receivedChecksum )
+            {
+// Succe s s , on a un message v a l i d e
+            }
+
+            break ;
+    default :
+       rcvState = StateReception.Waiting ;
+    break ;
+    }
