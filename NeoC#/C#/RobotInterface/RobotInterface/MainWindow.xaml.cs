@@ -119,7 +119,66 @@ namespace RobotInterface
 
             serialPort1.Write(msg, 0, msg.Length);
         }
-    }
 
+        public enum StateReception
+        {
+            Waiting,
+            FunctionMSB,
+            FunctionLSB,
+            PayloadLengthMSB,
+            PayloadLengthLSB,
+            Payload,
+            CheckSum
+        }
+        StateReception rcvState = StateReception.Waiting;
+        int msgDecodedFunction = 0;
+        int msgDecodedPayloadLength = 0;
+        byte[] msgDecodedPayload;
+        int msgDecodedPayloadIndex = 0;
+        private void DecodeMessage(byte c)
+        {
+            switch (rcvState)
+            {
+                case StateReception.Waiting:
+                    if (c == 0xFE)
+                        rcvState = StateReception.FunctionMSB;
+                    break;
+                case StateReception.FunctionMSB:
+                    msgDecodedFunction += c;
+                    msgDecodedFunction <<= 8;
+                    rcvState = StateReception.FunctionLSB;
+                    break;
+                case StateReception.FunctionLSB:
+                    msgDecodedFunction += c;
+                    rcvState = StateReception.PayloadLengthMSB;
+                    break;
+                case StateReception.PayloadLengthMSB:
+                    msgDecodedFunction += c;
+                    msgDecodedFunction <<= 8;
+                    rcvState = StateReception.PayloadLengthLSB;
+                    break;
+                case StateReception.PayloadLengthLSB:
+                    msgDecodedFunction += c;
+                    msgDecodedPayload = new byte[msgDecodedPayloadLength];
+                    if (msgDecodedPayloadLength == 0)
+                        rcvState = StateReception.CheckSum;
+                    else
+                        rcvState = StateReception.Payload;
+                    break;
+                case StateReception.Payload:
+                    msgDecodedPayload[msgDecodedPayloadIndex++] = c;
+                    if (msgDecodedPayloadIndex == msgDecodedPayloadLength)
+                        rcvState = StateReception.CheckSum;
+                    break;
+                case StateReception.CheckSum:
+                    break;
+                default:
+                    rcvState = StateReception.Waiting;
+                    break;
+            }
+        }
+
+    }
 }
+
 
