@@ -8,7 +8,25 @@
 #include "CB_TX1.h"
 #include "UART_protocole.h"
 
-unsigned char CalculateChecksum(unsigned short int msgFunction, unsigned short int msgPayloadLength, unsigned char* msgPayload)
+enum StateReception
+{
+    Waiting ,
+    FunctionMSB ,
+    FunctionLSB ,
+    PayloadLengthMSB ,
+    PayloadLengthLSB ,
+    Payload ,
+    CheckSum
+};
+ 
+    
+    StateReception rcvState = StateReception.Waiting ;
+    int msgDecodedFunction = 0 ;
+    int msgDecodedPayloadLength = 0 ;
+    unsigned char msgDecodedPayload[] ;
+    int msgDecodedPayloadIndex = 0 ;
+
+ char CalculateChecksum(int msgFunction,  int msgPayloadLength, unsigned char msgPayload[])
 {
     int i = 0;
     unsigned char checksum = 0xFE;
@@ -17,11 +35,11 @@ unsigned char CalculateChecksum(unsigned short int msgFunction, unsigned short i
     checksum = (unsigned char)(checksum ^ msgPayloadLength);
     for (i = 0; i < msgPayloadLength; i++)
         checksum ^= msgPayload[i];
-    
+ 
     return checksum;
 }
 
- void UartEncodeAndSendMessage(unsigned short int msgFunction, unsigned short msgPayloadLength, unsigned char* msgPayload)
+ void UartEncodeAndSendMessage( int msgFunction, int msgPayloadLength, unsigned char msgPayload[])
         {
             int i=0, j =0;
            unsigned char msg[ 6 + msgPayloadLength];
@@ -43,24 +61,11 @@ unsigned char CalculateChecksum(unsigned short int msgFunction, unsigned short i
             SendMessage(msg,i);
 
         }
-
- enum StateReception
-{
-    Waiting ,
-    FunctionMSB ,
-    FunctionLSB ,
-    PayloadLengthMSB ,
-    PayloadLengthLSB ,
-    Payload ,
-    CheckSum
-}
-
  
- StateReceptionrcvState = StateReception.Waiting ;
-int msgDecodedFunction = 0 ;
-int msgDecodedPayloadLength = 0 ;
-unsigned char msgDecodedPayload[] ;
-int msgDecodedPayloadIndex = 0 ;
+ 
+ 
+ 
+
 void DecodeMessage (char  c)
 {
     switch ( rcvState )
@@ -85,7 +90,7 @@ void DecodeMessage (char  c)
             break ;
         case StateReception.CheckSum :
 
-        if ( CalculateChecksum == receivedChecksum )
+        //if ( CalculateChecksum == receivedChecksum )
             {
 // Succe s s , on a un message v a l i d e
             }
@@ -95,3 +100,5 @@ void DecodeMessage (char  c)
        rcvState = StateReception.Waiting ;
     break ;
     }
+
+ 

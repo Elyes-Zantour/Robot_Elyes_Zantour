@@ -22,7 +22,6 @@ namespace RobotInterface
     {
         private Queue<byte> byteListReceived = new Queue<byte>();
         Robot robot = new Robot();
-        string receivedText;
         DispatcherTimer timerAffichage;
         private ReliableSerialPort serialPort1;
 
@@ -44,8 +43,8 @@ namespace RobotInterface
         private void TimerAffichageTick(object sender, EventArgs e)
         {
             if (byteListReceived.Count > 0)
-                textBoxReception.Text += "0x" + byteListReceived.Dequeue().ToString("X2") + " ";
-                receivedText = null;
+                byte b = Console.byteListReceived.Dequeue();
+                DecodeMessage(b);
         }
 
         private void buttonEnvoyer_Click(object sender, RoutedEventArgs e)
@@ -99,6 +98,7 @@ namespace RobotInterface
 
             return cheksum;
         }
+
        void UartEncodeAndSendMessage(ushort msgFunction, ushort msgPayloadLength, byte[] msgPayload)
         {
             int i = 0, j = 0;
@@ -134,7 +134,10 @@ namespace RobotInterface
         int msgDecodedFunction = 0;
         int msgDecodedPayloadLength = 0;
         byte[] msgDecodedPayload;
+        byte msgDecodedChecksum;
+        byte msgCalculatedChecksum;
         int msgDecodedPayloadIndex = 0;
+        int toto = -1;
         private void DecodeMessage(byte c)
         {
             switch (rcvState)
@@ -171,6 +174,12 @@ namespace RobotInterface
                         rcvState = StateReception.CheckSum;
                     break;
                 case StateReception.CheckSum:
+                    msgDecodedChecksum = c;
+                    msgCalculatedChecksum = CalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
+                    if (msgCalculatedChecksum == msgDecodedChecksum)
+                        toto = 1;
+                    else
+                        toto = 0;
                     break;
                 default:
                     rcvState = StateReception.Waiting;
