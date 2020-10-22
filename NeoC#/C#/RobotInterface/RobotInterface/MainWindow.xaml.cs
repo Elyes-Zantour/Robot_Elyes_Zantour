@@ -47,10 +47,11 @@ namespace RobotInterface
 
                 byte b = byteListReceived.Dequeue();
                 DecodeMessage(b);
-                textBoxReception.Text = "Fonction = " + msgDecodedFunction + " ";
 
+                //textBoxReception.Text = null;
+                //textBoxReception.Text += "Payload =" + msgDecodedPayloadLength;
+                //textBoxReception.Text += "0x" + byteListReceived.Dequeue().ToString("X2") + " ";
             }
-
         }
 
         private void buttonEnvoyer_Click(object sender, RoutedEventArgs e)
@@ -86,9 +87,10 @@ namespace RobotInterface
             //    byteList[i] = (byte)(2 * i);
             //}
             //serialPort1.Write(byteList, 0, byteList.Count());
-            string TestString = "Bonjour";
+
+            string TestString = "AAA";
             byte[] array = Encoding.ASCII.GetBytes(TestString);
-            UartEncodeAndSendMessage(0x0080, 7, array);
+            UartEncodeAndSendMessage(0x0080, 3, array);
         }
     
         byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
@@ -111,12 +113,12 @@ namespace RobotInterface
 
             msg[i++] = 0xFE;
 
-            msg[i++] = (byte)msgFunction;
             msg[i++] = (byte)(msgFunction >> 8);
+            msg[i++] = (byte)msgFunction;
 
-            msg[i++] = (byte)msgPayloadLength;
             msg[i++] = (byte)(msgPayloadLength >> 8);
-            
+            msg[i++] = (byte)msgPayloadLength;
+
             for (j = 0; j < msgPayloadLength; j++)
                 msg[i++] = msgPayload[j];
 
@@ -154,47 +156,64 @@ namespace RobotInterface
                     if (c == 0xFE)
                         rcvState = StateReception.FunctionMSB;
                     break;
+
                 case StateReception.FunctionMSB:
                     msgDecodedFunction += c;
                     msgDecodedFunction <<= 8;
                     rcvState = StateReception.FunctionLSB;
                     break;
+
                 case StateReception.FunctionLSB:
                     msgDecodedFunction += c;
                     rcvState = StateReception.PayloadLengthMSB;
                     break;
+
                 case StateReception.PayloadLengthMSB:
-                    msgDecodedFunction += c;
-                    msgDecodedFunction <<= 8;
+                    msgDecodedPayloadLength += c;
+                    msgDecodedPayloadLength <<= 8;
                     rcvState = StateReception.PayloadLengthLSB;
                     break;
+
                 case StateReception.PayloadLengthLSB:
-                    msgDecodedFunction += c;
+                    msgDecodedPayloadLength += c;
                     msgDecodedPayload = new byte[msgDecodedPayloadLength];
                     if (msgDecodedPayloadLength == 0)
                         rcvState = StateReception.CheckSum;
                     else
                         rcvState = StateReception.Payload;
                     break;
+
                 case StateReception.Payload:
                     msgDecodedPayload[msgDecodedPayloadIndex++] = c;
                     if (msgDecodedPayloadIndex == msgDecodedPayloadLength)
                         rcvState = StateReception.CheckSum;
                     break;
+
                 case StateReception.CheckSum:
                     msgDecodedChecksum = c;
                     msgCalculatedChecksum = CalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
+                    
+                    for (int i = 0; i < msgDecodedPayloadLength; i++)
+                        {
+                            textBoxReception.Text += msgDecodedPayload[i].ToString("X2");
+                        }
+                    
                     if (msgCalculatedChecksum == msgDecodedChecksum)
                         toto = 1;
                     else
                         toto = 0;
                     break;
+
                 default:
                     rcvState = StateReception.Waiting;
                     break;
             }
         }
 
+        private void textBoxReception1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
  
