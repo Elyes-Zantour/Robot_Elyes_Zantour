@@ -29,7 +29,7 @@ namespace RobotInterface
         {
             InitializeComponent();
 
-            serialPort1 = new ReliableSerialPort("COM5", 115200, Parity.None, 8, StopBits.One);
+            serialPort1 = new ReliableSerialPort("COM3", 115200, Parity.None, 8, StopBits.One);
             serialPort1.DataReceived += SerialPort1_DataReceived;
             serialPort1.Open();
 
@@ -43,8 +43,14 @@ namespace RobotInterface
         private void TimerAffichageTick(object sender, EventArgs e)
         {
             if (byteListReceived.Count > 0)
-                byte b = Console.byteListReceived.Dequeue();
+            {
+
+                byte b = byteListReceived.Dequeue();
                 DecodeMessage(b);
+                textBoxReception.Text = "Fonction = " + msgDecodedFunction + " ";
+
+            }
+
         }
 
         private void buttonEnvoyer_Click(object sender, RoutedEventArgs e)
@@ -66,7 +72,6 @@ namespace RobotInterface
                 byteListReceived.Enqueue(e.Data[i]);
             }
         }
-
 
         private void buttonClear_Click(object sender, RoutedEventArgs e)
         {
@@ -106,12 +111,12 @@ namespace RobotInterface
 
             msg[i++] = 0xFE;
 
-            msg[i++] = (byte)(msgFunction >> 8);
             msg[i++] = (byte)msgFunction;
+            msg[i++] = (byte)(msgFunction >> 8);
 
-            msg[i++] = (byte)(msgPayloadLength >> 8);
             msg[i++] = (byte)msgPayloadLength;
-
+            msg[i++] = (byte)(msgPayloadLength >> 8);
+            
             for (j = 0; j < msgPayloadLength; j++)
                 msg[i++] = msgPayload[j];
 
@@ -130,6 +135,8 @@ namespace RobotInterface
             Payload,
             CheckSum
         }
+
+        //Definitions
         StateReception rcvState = StateReception.Waiting;
         int msgDecodedFunction = 0;
         int msgDecodedPayloadLength = 0;
@@ -138,6 +145,7 @@ namespace RobotInterface
         byte msgCalculatedChecksum;
         int msgDecodedPayloadIndex = 0;
         int toto = -1;
+
         private void DecodeMessage(byte c)
         {
             switch (rcvState)
