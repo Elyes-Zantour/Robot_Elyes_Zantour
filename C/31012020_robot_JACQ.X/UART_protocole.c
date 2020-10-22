@@ -42,7 +42,6 @@ unsigned char CalculateChecksum(unsigned short int msgFunction, unsigned short i
             
             SendMessage(msg,i);
 
-          
         }
 
  enum StateReception
