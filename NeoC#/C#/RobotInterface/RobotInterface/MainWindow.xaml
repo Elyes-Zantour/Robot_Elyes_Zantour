@@ -26,14 +26,14 @@
             <TextBox x:Name="textBoxEmission" Margin="0" TextWrapping="Wrap" AcceptsReturn="True"/>
         </GroupBox>
         <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="6" Margin="190,122.333,0,0" VerticalAlignment="Top" Width="12" Grid.Column="1" Grid.Row="2"/>
-        <GroupBox x:Name="Réception" Header="GroupBox" Background="#FFDDDDDD" BorderBrush="Black" Grid.Column="3" Margin="0,0,0.333,2.667" Grid.Row="1" Grid.RowSpan="2">
+        <GroupBox x:Name="Réception" Header="Reception" Background="#FFDDDDDD" BorderBrush="Black" Grid.Column="3" Margin="0,0,0.333,2.667" Grid.Row="1" Grid.RowSpan="2">
             <TextBox x:Name="textBoxReception" Margin="0" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True"/>
         </GroupBox>
         <Button x:Name="buttonEnvoyer" Content="Envoyer" Grid.Column="1" HorizontalAlignment="Left" Margin="10,1.333,0,29.667" Grid.Row="4" Width="100" Click="buttonEnvoyer_Click" Grid.RowSpan="2"/>
         <Button x:Name="buttonClear" Content="Clear" Grid.Column="1" Margin="126,1.333,125,29.667" Grid.Row="4" Click="buttonClear_Click" Grid.RowSpan="2"/>
         <Button x:Name="buttonTest" Content="Test" Grid.Column="1" Margin="0,1.333,10,29.667" Grid.Row="4" Click="buttonTest_Click" HorizontalAlignment="Right" Width="100" Grid.RowSpan="2"/>
-        <GroupBox x:Name="Réception_Copy1" Header="Reception" Background="#FFDDDDDD" BorderBrush="Black" Grid.Column="1" Margin="0,5.333,1,2.667" Grid.Row="2">
-            <TextBox x:Name="textBoxReception2" Margin="0" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" TextChanged="textBoxReception1_TextChanged"/>
+        <GroupBox x:Name="Réception_Copy1" Header="Reception - Données" Background="#FFDDDDDD" BorderBrush="Black" Grid.Column="1" Margin="0,5.333,1,2.667" Grid.Row="2">
+            <TextBox x:Name="TextBoxData" Margin="0" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True"/>
         </GroupBox>
 
     </Grid>

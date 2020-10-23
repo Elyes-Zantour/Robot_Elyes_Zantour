@@ -29,7 +29,7 @@ namespace RobotInterface
         {
             InitializeComponent();
 
-            serialPort1 = new ReliableSerialPort("COM3", 115200, Parity.None, 8, StopBits.One);
+            serialPort1 = new ReliableSerialPort("COM5", 115200, Parity.None, 8, StopBits.One);
             serialPort1.DataReceived += SerialPort1_DataReceived;
             serialPort1.Open();
 
@@ -44,13 +44,23 @@ namespace RobotInterface
         {
             if (byteListReceived.Count > 0)
             {
-
                 byte b = byteListReceived.Dequeue();
                 DecodeMessage(b);
 
                 //textBoxReception.Text = null;
                 //textBoxReception.Text += "Payload =" + msgDecodedPayloadLength;
                 //textBoxReception.Text += "0x" + byteListReceived.Dequeue().ToString("X2") + " ";
+
+                if (decodedFlag)
+                {
+                    string stringPayload = " ";
+                    for (int i = 0; i < msgDecodedPayloadLength; i++)
+                    {
+                        stringPayload += msgDecodedPayload[i].ToString("X2") + " ";
+                    }
+                    TextBoxData.Text = null;
+                    TextBoxData.Text = "Fonction = " + msgDecodedFunction + " LongeurPayload = " + msgDecodedPayloadLength + " Payload = " + stringPayload + " Checksum = " + isCkecksumOk;
+                }
             }
         }
 
@@ -91,6 +101,11 @@ namespace RobotInterface
             string TestString = "AAA";
             byte[] array = Encoding.ASCII.GetBytes(TestString);
             UartEncodeAndSendMessage(0x0080, 3, array);
+
+            
+
+
+
         }
     
         byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
@@ -146,7 +161,8 @@ namespace RobotInterface
         byte msgDecodedChecksum;
         byte msgCalculatedChecksum;
         int msgDecodedPayloadIndex = 0;
-        int toto = -1;
+        bool decodedFlag = false;
+        int isCkecksumOk = -1;
 
         private void DecodeMessage(byte c)
         {
@@ -154,7 +170,10 @@ namespace RobotInterface
             {
                 case StateReception.Waiting:
                     if (c == 0xFE)
+                    {
                         rcvState = StateReception.FunctionMSB;
+                        decodedFlag = false;
+                    }
                     break;
 
                 case StateReception.FunctionMSB:
@@ -192,16 +211,11 @@ namespace RobotInterface
                 case StateReception.CheckSum:
                     msgDecodedChecksum = c;
                     msgCalculatedChecksum = CalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
-                    
-                    for (int i = 0; i < msgDecodedPayloadLength; i++)
-                        {
-                            textBoxReception.Text += msgDecodedPayload[i].ToString("X2");
-                        }
-                    
-                    if (msgCalculatedChecksum == msgDecodedChecksum)
-                        toto = 1;
+                    decodedFlag = true;
+                    if (msgDecodedChecksum == msgCalculatedChecksum)
+                        isCkecksumOk = 1;
                     else
-                        toto = 0;
+                        isCkecksumOk = 0;
                     break;
 
                 default:
@@ -210,10 +224,11 @@ namespace RobotInterface
             }
         }
 
-        private void textBoxReception1_TextChanged(object sender, TextChangedEventArgs e)
+        void ProcessDecodedMessage(int msgFunction,int msgPayloadLength, byte[] msgPayload)
         {
 
         }
+
     }
 }
  
