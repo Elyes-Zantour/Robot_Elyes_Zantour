@@ -37,7 +37,6 @@ namespace RobotInterface
             timerAffichage.Interval = new TimeSpan(0, 0, 0, 0, 20);
             timerAffichage.Tick += TimerAffichageTick;
             timerAffichage.Start();
-
         }
 
         private void TimerAffichageTick(object sender, EventArgs e)
@@ -54,10 +53,12 @@ namespace RobotInterface
                 if (decodedFlag)
                 {
                     string stringPayload = " ";
+
                     for (int i = 0; i < msgDecodedPayloadLength; i++)
                     {
                         stringPayload += msgDecodedPayload[i].ToString("X2") + " ";
                     }
+
                     TextBoxData.Text = null;
                     TextBoxData.Text = "Fonction = " + msgDecodedFunction + " LongeurPayload = " + msgDecodedPayloadLength + " Payload = " + stringPayload + " Checksum = " + isCkecksumOk;
                 }
@@ -78,6 +79,7 @@ namespace RobotInterface
         private void SerialPort1_DataReceived(object sender, DataReceivedArgs e)
         {
             //receivedText += Encoding.UTF8.GetString(e.Data, 0, e.Data.Length);
+
             for (int i = 0; i < e.Data.Length; i++)
             {
                 byteListReceived.Enqueue(e.Data[i]);
@@ -101,11 +103,6 @@ namespace RobotInterface
             string TestString = "AAA";
             byte[] array = Encoding.ASCII.GetBytes(TestString);
             UartEncodeAndSendMessage(0x0080, 3, array);
-
-            
-
-
-
         }
     
         byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
@@ -155,14 +152,17 @@ namespace RobotInterface
 
         //Definitions
         StateReception rcvState = StateReception.Waiting;
-        int msgDecodedFunction = 0;
-        int msgDecodedPayloadLength = 0;
+
         byte[] msgDecodedPayload;
         byte msgDecodedChecksum;
         byte msgCalculatedChecksum;
+
+        int msgDecodedFunction = 0;
+        int msgDecodedPayloadLength = 0;
         int msgDecodedPayloadIndex = 0;
-        bool decodedFlag = false;
         int isCkecksumOk = -1;
+
+        bool decodedFlag = false;
 
         private void DecodeMessage(byte c)
         {
@@ -223,12 +223,6 @@ namespace RobotInterface
                     break;
             }
         }
-
-        void ProcessDecodedMessage(int msgFunction,int msgPayloadLength, byte[] msgPayload)
-        {
-
-        }
-
     }
 }
  
