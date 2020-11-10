@@ -9,17 +9,18 @@ int cbTx1Head = 0;
 int cbTx1Tail = 0;
 unsigned char cbTx1Buffer [CBTX1_BUFFER_SIZE];
 unsigned char isTransmitting = 0 ;
+
 void SendMessage (unsigned char * message , int length )
 {
-unsigned char i =0;
-if (CB_TX1_RemainingSize()> length )
-{
-//On peut écrire le message
-for ( i =0; i<length; i++)
-CB_TX1_Add( message [ i ] ) ;
-if ( !CB_TX1_IsTranmitting ( ) )
-SendOne ( ) ;
-}
+    unsigned char i =0;
+    if (CB_TX1_RemainingSize()> length )
+    {
+        //On peut écrire le message
+        for ( i =0; i<length; i++)
+        CB_TX1_Add( message [ i ] ) ;
+        if ( !CB_TX1_IsTranmitting())
+        SendOne();
+    }
 }
 void CB_TX1_Add(unsigned char value )
 {

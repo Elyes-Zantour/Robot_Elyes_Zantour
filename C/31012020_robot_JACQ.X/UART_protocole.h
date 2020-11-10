@@ -8,17 +8,13 @@
 #ifndef UART_PROTOCOLE_H
 #define	UART_PROTOCOLE_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-     unsigned char CalculateChecksum(int msgFunction,  int msgPayloadLength, unsigned char msgPayload[]);
-    void UartEncodeAndSendMessage( int msgFunction, int msgPayloadLength, unsigned char msgPayload[]);
-    void DecodeMessage (char  c);
- 
- 
-#ifdef	__cplusplus
-}
-#endif
+
+
+void UartDecodeMessage (unsigned char c );
+unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsigned char * msgPayload);
+void UartEncodeAndSendMessage( int msgFunction, int msgPayloadLength, unsigned char msgPayload[]);
+
+
 
 #endif	/* UART_PROTOCOLE_H */
 

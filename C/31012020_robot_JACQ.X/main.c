@@ -11,8 +11,9 @@
 #include "Toolbox.h"
 #include "etats.h"
 #include "UART.h"
-#include  "CB_TX1.h"
+#include "CB_TX1.h"
 #include "CB_RX1.h"
+#include "UART_protocole.h"
 #include <libpic30.h>
 int main(void) {
 
@@ -63,6 +64,14 @@ int main(void) {
                 robotState.distanceTelemetreGauche = 34/volts-5;
                 volts=((float)result[3])*3.3/4096*3.2;
                 robotState.distanceTelemetreGauche2 = 34/volts-5;
+                
+                if( timestamp % 1000)
+                {
+                    UartEncodeAndSendMessage(0x0030, 3, (unsigned char)robotState.distanceTelemetreDroit);
+                }
+                
+                
+                
             }
       int i ;
     for ( i =0; i< CB_RX1_GetDataSize(); i++)
@@ -71,6 +80,7 @@ int main(void) {
         SendMessageDirect(&c,1) ;
     }
     __delay32 (1000) ;
+    
     } // fin while
 
 }

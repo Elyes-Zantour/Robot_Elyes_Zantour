@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using ExtendedSerialPort;
+using System.Threading;
 
 namespace RobotInterface
 {
@@ -164,8 +165,10 @@ namespace RobotInterface
 
         bool decodedFlag = false;
 
+        
         private void DecodeMessage(byte c)
         {
+            
             switch (rcvState)
             {
                 case StateReception.Waiting:
@@ -213,7 +216,16 @@ namespace RobotInterface
                     msgCalculatedChecksum = CalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
                     decodedFlag = true;
                     if (msgDecodedChecksum == msgCalculatedChecksum)
+                    {
                         isCkecksumOk = 1;
+                        foreach (byte b in msgDecodedPayload)
+                        {
+                            textBoxReception.Text += "0x" + b + " ";
+                        }
+                        textBoxReception.Text += "\n";
+                        
+                    }
+                        
                     else
                         isCkecksumOk = 0;
                     break;

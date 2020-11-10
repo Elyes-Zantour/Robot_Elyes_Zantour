@@ -4,121 +4,51 @@
 #include "CB_RX1.h"
 #include "CB_TX1.h"
 #include "UART.h"
-#include "CB_TX1.h"
-#include "CB_TX1.h"
 #include "UART_protocole.h"
 
-unsigned char  msgDecodedChecksum;
+ int msgDecodedFunction =0;
+int msgDecodedPayloadLength = 0;
+unsigned char msgDecodedPayload [128];
+int msgDecodedPayloadIndex = 0;
+int decodedFlag =0;
+unsigned char msgDecodedChecksum;
 unsigned char msgCalculatedChecksum;
-int isCkecksumOk = -1;
-int decodedFlag = 0;
-int msgDecodedFunction=0;
-int msgDecodedPayloadLenght[128];
-int msgDecodedPayloadIndex=0;
-
-
+int  isCkecksumOk=-1;
+     
 
 enum StateReception
 {
-    Waiting ,
-    FunctionMSB ,
-    FunctionLSB ,
-    PayloadLengthMSB ,
-    PayloadLengthLSB ,
-    Payload ,
+    Waiting,
+    FunctionMSB,
+    FunctionLSB,
+    PayloadLengthMSB,
+    PayloadLengthLSB,
+    Payload,
     CheckSum
 };
-StateReception rcvState = StateReception.Waiting;
- 
-    void UartDecodeMessage (unsigned char c ){
-          switch (rcvState)
-            {
-                case StateReception.Waiting:
-                    if (c == 0xFE)
-                    {
-                        rcvState = StateReception.FunctionMSB;
-                        decodedFlag = 0;
-                    }
-                    break;
 
-                case StateReception.FunctionMSB:
-                    msgDecodedFunction += c;
-                    msgDecodedFunction <<= 8;
-                    rcvState = StateReception.FunctionLSB;
-                    break;
+enum StateReception rcvState = Waiting ;
 
-                case StateReception.FunctionLSB:
-                    msgDecodedFunction += c;
-                    rcvState = StateReception.PayloadLengthMSB;
-                    break;
+unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsigned char * msgPayload){
+           unsigned char  cheksum = 0xFE;
 
-                case StateReception.PayloadLengthMSB:
-                    msgDecodedPayloadLength += c;
-                    msgDecodedPayloadLength <<= 8;
-                    rcvState = StateReception.PayloadLengthLSB;
-                    break;
+            cheksum = cheksum ^ msgFunction;
+            cheksum = cheksum ^ msgPayloadLength;
 
-                case StateReception.PayloadLengthLSB:
-                    msgDecodedPayloadLength += c;
-                    msgDecodedPayload = unsigned char [msgDecodedPayloadLength];
-                    if (msgDecodedPayloadLength == 0)
-                        rcvState = StateReception.CheckSum;
-                    else
-                        rcvState = StateReception.Payload;
-                    break;
+            int i ;
+            for (i= 0; i < msgPayloadLength; i++)
+                cheksum ^= msgPayload[i];
 
-                case StateReception.Payload:
-                    msgDecodedPayload[msgDecodedPayloadIndex++] = c;
-                    if (msgDecodedPayloadIndex == msgDecodedPayloadLength)
-                        rcvState = StateReception.CheckSum;
-                    break;
-
-                case StateReception.CheckSum:
-                    msgDecodedChecksum = c;
-                    msgCalculatedChecksum = CalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
-                    decodedFlag = 1;
-                    if (msgDecodedChecksum == msgCalculatedChecksum)
-                        isCkecksumOk = 1;
-                    else
-                        isCkecksumOk = 0;
-                    break;
-
-                default:
-                    rcvState = StateReception.Waiting;
-                    break;
-          }
-    }
-    void UartProczsDecodedMessage(int function , int payloadLength, unsigned char* payload){
-        
-    }
-
-    StateReception rcvState = StateReception.Waiting ;
-    int msgDecodedFunction = 0 ;
-    int msgDecodedPayloadLength = 0 ;
-    unsigned char msgDecodedPayload;
-    int msgDecodedPayloadIndex = 0 ;
-
- unsigned char CalculateChecksum(int msgFunction,  int msgPayloadLength, unsigned char msgPayload[])
-{
-    int i = 0;
-    unsigned char checksum = 0xFE;
-    
-    checksum = (unsigned char)(checksum ^ msgFunction);
-    checksum = (unsigned char)(checksum ^ msgPayloadLength);
-    for (i = 0; i < msgPayloadLength; i++)
-        checksum ^= msgPayload[i];
- 
-    return checksum;
+            return cheksum;
 }
-
- void UartEncodeAndSendMessage( int msgFunction, int msgPayloadLength, unsigned char msgPayload[])
+ 
+    void UartEncodeAndSendMessage( int msgFunction, int msgPayloadLength, unsigned char msgPayload[])
         {
             int i=0, j =0;
-           unsigned char msg[ 6 + msgPayloadLength];
+           unsigned char msg[6 + msgPayloadLength];
        
 
             msg[i++] = 0xFE;
-
             msg[i++] = msgFunction >> 8;
             msg[i++] = msgFunction;
 
@@ -128,9 +58,65 @@ StateReception rcvState = StateReception.Waiting;
             for (j = 0; j < msgPayloadLength; j++)
                 msg[i++] = msgPayload[j];
 
-            msg[i++] = CalculateChecksum(msgFunction, msgPayloadLength, msgPayload);
+            msg[i++] = UartCalculateChecksum(msgFunction, msgPayloadLength, msgPayload);
             
             SendMessage(msg,i);
 
  }
- 
+     void UartDecodeMessage (unsigned char c ){
+          switch (rcvState)
+            {
+                case Waiting:
+                    if (c == 0xFE)
+                    {
+                        rcvState = FunctionMSB;
+                        decodedFlag = 0;
+                    }
+                    break;
+
+                case FunctionMSB:
+                    msgDecodedFunction += c;
+                    msgDecodedFunction <<= 8;
+                    rcvState = FunctionLSB;
+                    break;
+
+                case FunctionLSB:
+                    msgDecodedFunction += c;
+                    rcvState = PayloadLengthMSB;
+                    break;
+
+                case PayloadLengthMSB:
+                    msgDecodedPayloadLength += c;
+                    msgDecodedPayloadLength <<= 8;
+                    rcvState = PayloadLengthLSB;
+                    break;
+
+                case PayloadLengthLSB:
+                    msgDecodedPayloadLength += c;          
+                    if (msgDecodedPayloadLength == 0)
+                        rcvState = CheckSum;
+                    else
+                        rcvState = Payload;
+                    break;
+
+                case Payload:
+                    msgDecodedPayload[msgDecodedPayloadIndex++] = c;
+                    if (msgDecodedPayloadIndex == msgDecodedPayloadLength)
+                        rcvState =CheckSum;
+                    break;
+
+                case CheckSum:
+                    msgDecodedChecksum = c;
+                    msgCalculatedChecksum = UartCalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
+                    decodedFlag = 1;
+                    if (msgDecodedChecksum == msgCalculatedChecksum)
+                        isCkecksumOk = 1;
+                    else
+                        isCkecksumOk = 0;
+                    break;
+
+                default:
+                    rcvState = Waiting;
+                    break;
+          }
+    }
