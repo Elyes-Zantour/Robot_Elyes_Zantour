@@ -30,16 +30,16 @@ enum StateReception
 enum StateReception rcvState = Waiting ;
 
 unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsigned char * msgPayload){
-           unsigned char  cheksum = 0xFE;
+           unsigned char  checksum = 0xFE;
 
-            cheksum = cheksum ^ msgFunction;
-            cheksum = cheksum ^ msgPayloadLength;
+            checksum = checksum ^ msgFunction;
+            checksum = checksum ^ msgPayloadLength;
 
             int i ;
             for (i= 0; i < msgPayloadLength; i++)
-                cheksum ^= msgPayload[i];
+                checksum ^= msgPayload[i];
 
-            return cheksum;
+            return checksum;
 }
  
     void UartEncodeAndSendMessage( int msgFunction, int msgPayloadLength, unsigned char msgPayload[])

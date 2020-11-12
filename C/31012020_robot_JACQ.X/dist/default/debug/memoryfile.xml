@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/31012020_robot_JACQ.X.production.elf">
+  <executable name="dist/default/debug/31012020_robot_JACQ.X.debug.elf">
     <memory name="data">
       <units>bytes</units>
       <length>49152</length>
-      <used>478</used>
-      <free>48674</free>
+      <used>558</used>
+      <free>48594</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
       <length>524514</length>
-      <used>8013</used>
-      <free>516501</free>
+      <used>8067</used>
+      <free>516447</free>
     </memory>
   </executable>
 </project>

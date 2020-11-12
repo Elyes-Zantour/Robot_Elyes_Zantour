@@ -25,7 +25,7 @@ int main(void) {
     InitADC1();
     InitPWM();
     InitUART();
-    SendMessageDirect ((unsigned char *) " Bonjour",7 ) ;
+    //SendMessageDirect ((unsigned char *) " Bonjour",7 ) ;
   
 
     unsigned int *result = ADCGetResult();
@@ -52,7 +52,9 @@ int main(void) {
                 ADCValue3=result[3];
                 ADCValue4=result[4];
                 ADCValue5=result[5];
-                ADCClearConversionFinishedFlag();
+                
+                //ADCClearConversionFinishedFlag();
+                //pourquoi le clear deux fois?
                 
                 volts=((float)result[5])*3.3/4096*3.2;
                 robotState.distanceTelemetreDroit2 = 34/volts-5;
@@ -65,22 +67,20 @@ int main(void) {
                 volts=((float)result[3])*3.3/4096*3.2;
                 robotState.distanceTelemetreGauche2 = 34/volts-5;
                 
-                if( timestamp % 1000)
-                {
-                    UartEncodeAndSendMessage(0x0030, 3, (unsigned char)robotState.distanceTelemetreDroit);
-                }
                 
                 
-                
+                unsigned char payload[5] = {(unsigned char) robotState.distanceTelemetreDroit2, (unsigned char) robotState.distanceTelemetreDroit, (unsigned char) robotState.distanceTelemetreCentre, (unsigned char) robotState.distanceTelemetreGauche, (unsigned char) robotState.distanceTelemetreGauche2};
+                UartEncodeAndSendMessage(0x0030, 5, payload);
             }
-      int i ;
-    for ( i =0; i< CB_RX1_GetDataSize(); i++)
-    {
-        unsigned char c = CB_RX1_Get() ;
-        SendMessageDirect(&c,1) ;
-    }
-    __delay32 (1000) ;
-    
+        
+        //pour renvoyer ce qui est reçu ?
+        //int i ;
+        //for ( i =0; i< CB_RX1_GetDataSize(); i++)
+        //{
+            //unsigned char c = CB_RX1_Get();
+            //SendMessageDirect(&c,1);
+        //}
+        
     } // fin while
 
 }

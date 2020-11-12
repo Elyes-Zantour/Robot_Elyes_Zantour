@@ -35,14 +35,14 @@ namespace RobotInterface
             serialPort1.Open();
 
             timerAffichage = new DispatcherTimer();
-            timerAffichage.Interval = new TimeSpan(0, 0, 0, 0, 20);
+            timerAffichage.Interval = new TimeSpan(0, 0, 0, 0, 250);
             timerAffichage.Tick += TimerAffichageTick;
             timerAffichage.Start();
         }
 
         private void TimerAffichageTick(object sender, EventArgs e)
         {
-            if (byteListReceived.Count > 0)
+            while (byteListReceived.Count > 0)
             {
                 byte b = byteListReceived.Dequeue();
                 DecodeMessage(b);
@@ -168,12 +168,19 @@ namespace RobotInterface
         
         private void DecodeMessage(byte c)
         {
-            
+            Console.Write("0x" + c.ToString("X2") + " ");
             switch (rcvState)
             {
+                
                 case StateReception.Waiting:
                     if (c == 0xFE)
                     {
+                        msgDecodedPayloadLength = 0;
+                        msgDecodedPayloadIndex = 0;
+                        msgDecodedChecksum = 0;
+                        msgCalculatedChecksum = 0;
+                        msgDecodedFunction = 0;
+
                         rcvState = StateReception.FunctionMSB;
                         decodedFlag = false;
                     }
@@ -203,31 +210,31 @@ namespace RobotInterface
                         rcvState = StateReception.CheckSum;
                     else
                         rcvState = StateReception.Payload;
+
                     break;
 
                 case StateReception.Payload:
                     msgDecodedPayload[msgDecodedPayloadIndex++] = c;
                     if (msgDecodedPayloadIndex == msgDecodedPayloadLength)
                         rcvState = StateReception.CheckSum;
+                   
                     break;
 
+
                 case StateReception.CheckSum:
-                    msgDecodedChecksum = c;
-                    msgCalculatedChecksum = CalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
+                    
+                   msgDecodedChecksum = c;
+                   msgCalculatedChecksum = CalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
                     decodedFlag = true;
+                    Console.WriteLine("CHECKSUM : " + msgCalculatedChecksum.ToString("X2"));
                     if (msgDecodedChecksum == msgCalculatedChecksum)
                     {
                         isCkecksumOk = 1;
-                        foreach (byte b in msgDecodedPayload)
-                        {
-                            textBoxReception.Text += "0x" + b + " ";
-                        }
-                        textBoxReception.Text += "\n";
-                        
+
                     }
-                        
                     else
                         isCkecksumOk = 0;
+                    rcvState = StateReception.Waiting;
                     break;
 
                 default:
