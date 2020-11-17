@@ -57,7 +57,7 @@ namespace RobotInterface
                         stringPayload += m.Payload[i].ToString("X2") + " ";
                     }
 
-                    TextBoxData.Text = "Fonction = " + msgDecodedFunction + " LongeurPayload = " + msgDecodedPayloadLength + " Payload = " + stringPayload + " Checksum = " + isCkecksumOk;
+                    TextBoxData.Text = "Fonction = " + msgDecodedFunction + " LongeurPayload = " + msgDecodedPayloadLength + " Payload = " + stringPayload + " Checksum = " + isChecksumOk;
                 }
             }
         }
@@ -155,10 +155,7 @@ namespace RobotInterface
         UInt16 msgDecodedFunction = 0;
         UInt16 msgDecodedPayloadLength = 0;
         int msgDecodedPayloadIndex = 0;
-        int isCkecksumOk = -1;
-
-        bool decodedFlag = false;
-
+        int isChecksumOk = -1;
         
         private void DecodeMessage(byte c)
         {
@@ -169,7 +166,6 @@ namespace RobotInterface
                     if (c == 0xFE)
                     {
                         rcvState = StateReception.FunctionMSB;
-                        decodedFlag = false;
                     }
                     break;
 
@@ -215,15 +211,16 @@ namespace RobotInterface
                 case StateReception.CheckSum:                    
                    msgDecodedChecksum = c;
                    msgCalculatedChecksum = CalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
-                    //decodedFlag = true;
-                    Console.WriteLine("CHECKSUM : " + msgCalculatedChecksum.ToString("X2"));
+                    //Console.WriteLine("CHECKSUM : " + msgCalculatedChecksum.ToString("X2"));
                     if (msgDecodedChecksum == msgCalculatedChecksum)
                     {
                         robot.messageQueue.Enqueue(new Message(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload));
+                        isChecksumOk = 1;
                     }
                     else
                     {
-                        Console.WriteLine("Wrong Message Checksum");
+                        //Console.WriteLine("Wrong Message Checksum");
+                        isChecksumOk = 0;
                     }
                     rcvState = StateReception.Waiting;
                     break;
