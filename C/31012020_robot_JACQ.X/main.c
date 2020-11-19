@@ -74,12 +74,12 @@ int main(void) {
             }
         
         //pour renvoyer ce qui est reçu ?
-        //int i ;
-        //for ( i =0; i< CB_RX1_GetDataSize(); i++)
-        //{
-            //unsigned char c = CB_RX1_Get();
-            //SendMessageDirect(&c,1);
-        //}
+        int i ;
+        for ( i =0; i< CB_RX1_GetDataSize(); i++)
+        {
+            unsigned char c = CB_RX1_Get();
+            UartDecodeMessage(c);
+        }
         
     } // fin while
 
