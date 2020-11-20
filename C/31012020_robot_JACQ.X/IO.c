@@ -48,6 +48,11 @@ void InitIO()
 
   _U1RXR = 24; //Remappe l a RP . . . s u r l ?é e n t r e Rx1
   _RP36R = 0b00001 ; //Remappe l a s o r t i e Tx1 v e r s RP . .
+  
+  _QEA2R = 97; // assign QEI A to pin RP97
+  _QEB2R = 96; // assign QEI B to pin RP96
+  _QEA1R = 70; // assign QEI A to pin RP70
+  _QEB1R = 69; // assign QEI B to pin RP69
 
 
     //********** Configuration des entrées : _TRISxx = 1 ********************************

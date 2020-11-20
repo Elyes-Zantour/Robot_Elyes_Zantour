@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c IO.c ChipConfig.c ADC.c PWM.c Robot.c timer.c Toolbox.c etats.c UART.c CB_TX1.c CB_RX1.c UART_protocole.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c IO.c ChipConfig.c ADC.c PWM.c Robot.c timer.c Toolbox.c etats.c UART.c CB_TX1.c CB_RX1.c UART_protocole.c QEI.c Utilities.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/IO.o ${OBJECTDIR}/ChipConfig.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/PWM.o ${OBJECTDIR}/Robot.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/Toolbox.o ${OBJECTDIR}/etats.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/CB_TX1.o ${OBJECTDIR}/CB_RX1.o ${OBJECTDIR}/UART_protocole.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/IO.o.d ${OBJECTDIR}/ChipConfig.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/PWM.o.d ${OBJECTDIR}/Robot.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/Toolbox.o.d ${OBJECTDIR}/etats.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/CB_TX1.o.d ${OBJECTDIR}/CB_RX1.o.d ${OBJECTDIR}/UART_protocole.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/IO.o ${OBJECTDIR}/ChipConfig.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/PWM.o ${OBJECTDIR}/Robot.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/Toolbox.o ${OBJECTDIR}/etats.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/CB_TX1.o ${OBJECTDIR}/CB_RX1.o ${OBJECTDIR}/UART_protocole.o ${OBJECTDIR}/QEI.o ${OBJECTDIR}/Utilities.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/IO.o.d ${OBJECTDIR}/ChipConfig.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/PWM.o.d ${OBJECTDIR}/Robot.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/Toolbox.o.d ${OBJECTDIR}/etats.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/CB_TX1.o.d ${OBJECTDIR}/CB_RX1.o.d ${OBJECTDIR}/UART_protocole.o.d ${OBJECTDIR}/QEI.o.d ${OBJECTDIR}/Utilities.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/IO.o ${OBJECTDIR}/ChipConfig.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/PWM.o ${OBJECTDIR}/Robot.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/Toolbox.o ${OBJECTDIR}/etats.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/CB_TX1.o ${OBJECTDIR}/CB_RX1.o ${OBJECTDIR}/UART_protocole.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/IO.o ${OBJECTDIR}/ChipConfig.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/PWM.o ${OBJECTDIR}/Robot.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/Toolbox.o ${OBJECTDIR}/etats.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/CB_TX1.o ${OBJECTDIR}/CB_RX1.o ${OBJECTDIR}/UART_protocole.o ${OBJECTDIR}/QEI.o ${OBJECTDIR}/Utilities.o
 
 # Source Files
-SOURCEFILES=main.c IO.c ChipConfig.c ADC.c PWM.c Robot.c timer.c Toolbox.c etats.c UART.c CB_TX1.c CB_RX1.c UART_protocole.c
+SOURCEFILES=main.c IO.c ChipConfig.c ADC.c PWM.c Robot.c timer.c Toolbox.c etats.c UART.c CB_TX1.c CB_RX1.c UART_protocole.c QEI.c Utilities.c
 
 
 
@@ -90,8 +90,8 @@ ifneq ($(INFORMATION_MESSAGE), )
 endif
 	${MAKE}  -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/31012020_robot_JACQ.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
-MP_PROCESSOR_OPTION=33EP512GM306
-MP_LINKER_FILE_OPTION=,--script=p33EP512GM306.gld
+MP_PROCESSOR_OPTION=33EP512GM706
+MP_LINKER_FILE_OPTION=,--script=p33EP512GM706.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
@@ -186,6 +186,20 @@ ${OBJECTDIR}/UART_protocole.o: UART_protocole.c  nbproject/Makefile-${CND_CONF}.
 	${MP_CC} $(MP_EXTRA_CC_PRE)  UART_protocole.c  -o ${OBJECTDIR}/UART_protocole.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART_protocole.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	@${FIXDEPS} "${OBJECTDIR}/UART_protocole.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/QEI.o: QEI.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/QEI.o.d 
+	@${RM} ${OBJECTDIR}/QEI.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  QEI.c  -o ${OBJECTDIR}/QEI.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/QEI.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	@${FIXDEPS} "${OBJECTDIR}/QEI.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/Utilities.o: Utilities.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Utilities.o.d 
+	@${RM} ${OBJECTDIR}/Utilities.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  Utilities.c  -o ${OBJECTDIR}/Utilities.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Utilities.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	@${FIXDEPS} "${OBJECTDIR}/Utilities.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -277,6 +291,20 @@ ${OBJECTDIR}/UART_protocole.o: UART_protocole.c  nbproject/Makefile-${CND_CONF}.
 	@${RM} ${OBJECTDIR}/UART_protocole.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  UART_protocole.c  -o ${OBJECTDIR}/UART_protocole.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART_protocole.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	@${FIXDEPS} "${OBJECTDIR}/UART_protocole.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/QEI.o: QEI.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/QEI.o.d 
+	@${RM} ${OBJECTDIR}/QEI.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  QEI.c  -o ${OBJECTDIR}/QEI.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/QEI.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	@${FIXDEPS} "${OBJECTDIR}/QEI.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/Utilities.o: Utilities.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Utilities.o.d 
+	@${RM} ${OBJECTDIR}/Utilities.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  Utilities.c  -o ${OBJECTDIR}/Utilities.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Utilities.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	@${FIXDEPS} "${OBJECTDIR}/Utilities.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

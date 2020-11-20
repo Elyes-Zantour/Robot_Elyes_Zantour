@@ -5,6 +5,8 @@
 #include "Robot.h"
 #include "ADC.h"
 #include "etats.h"
+#include "QEI.h"
+
 
 
 unsigned long timestamp;
@@ -27,6 +29,11 @@ void InitTimer23(void) {
     T2CONbits.TON = 1; // Start 32-bit Timer
     /* Example code for Timer3 ISR */
 }
+void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
+    {
+        IFS0bits.T1IF = 0;
+        QEIUpdateData();   
+    }
 
 // I n t e r r u p t i o n du time r 32 b i t s s u r 2?3
 void __attribute__ (( interrupt, no_auto_psv )) _T3Interrupt(void) {
@@ -39,7 +46,6 @@ void __attribute__ (( interrupt, no_auto_psv )) _T4Interrupt(void) {
     OperatingSystemLoop();
     ADC1StartConversionSequence();
 }
-
 
 //Initialisation d?un timer 16 bits
 void InitTimer1(void)
@@ -58,7 +64,7 @@ void InitTimer1(void)
         IEC0bits.T1IE = 1; // Enable Timer interrupt
         T1CONbits.TON = 1; // Enable Timer
     
-        SetFreqTimer1(50);
+        SetFreqTimer1(250);
     }
 
 void InitTimer4(void)
@@ -80,11 +86,7 @@ void InitTimer4(void)
     }
 
 //Interruption du timer 1
-void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
-    {
-        IFS0bits.T1IF = 0;
-        PWMUpdateSpeed();
-    }
+
 void SetFreqTimer1(float freq)
     {
         T1CONbits.TCKPS = 0b00; //00 = 1:1 prescaler value

@@ -15,6 +15,9 @@
 #include "CB_RX1.h"
 #include "UART_protocole.h"
 #include <libpic30.h>
+#include "QEI.h"
+#include "Utilities.h"
+
 int main(void) {
 
     InitOscillator();
@@ -31,6 +34,9 @@ int main(void) {
     unsigned int *result = ADCGetResult();
     int ADCValue0 = 0, ADCValue1 = 0, ADCValue2 = 0, ADCValue3 = 0, ADCValue4 = 0, ADCValue5 = 0;
     float volts = 0;
+    
+    InitQEI1();
+    InitQEI2();
     
     /****************************************************************************************************/
     // Boucle Principale
@@ -69,8 +75,10 @@ int main(void) {
                 
                 
                 
-                unsigned char payload[5] = {(unsigned char) robotState.distanceTelemetreDroit2, (unsigned char) robotState.distanceTelemetreDroit, (unsigned char) robotState.distanceTelemetreCentre, (unsigned char) robotState.distanceTelemetreGauche, (unsigned char) robotState.distanceTelemetreGauche2};
-                UartEncodeAndSendMessage(0x0030, 5, payload);
+                //unsigned char payload[5] = {(unsigned char) robotState.distanceTelemetreDroit2, (unsigned char) robotState.distanceTelemetreDroit, (unsigned char) robotState.distanceTelemetreCentre, (unsigned char) robotState.distanceTelemetreGauche, (unsigned char) robotState.distanceTelemetreGauche2};
+                //UartEncodeAndSendMessage(0x0030, 5, payload);
+                
+                
             }
         
         //pour renvoyer ce qui est reçu ?

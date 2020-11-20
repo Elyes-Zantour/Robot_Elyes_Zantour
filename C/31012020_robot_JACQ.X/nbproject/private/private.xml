@@ -5,6 +5,9 @@
         <group>
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/UART_protocole.c</file>
             <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/main.c</file>
+            <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/QEI.h</file>
+            <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/QEI.c</file>
+            <file>file:/C:/GitHub/Robot_Elyes_Zantour/C/31012020_robot_JACQ.X/IO.c</file>
         </group>
     </open-files>
 </project-private>
