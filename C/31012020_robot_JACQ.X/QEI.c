@@ -59,22 +59,22 @@ void QEIUpdateData()
         dx =(delta_d + delta_g)/2;
 
         //calcul des vitesses
-         robotState.vitesseDroitFromOdometry = delta_d*FREQ_ECH_QEI;
-         robotState.vitesseGaucheFromOdometry = delta_g*FREQ_ECH_QEI;
+        robotState.vitesseDroitFromOdometry = delta_d*FREQ_ECH_QEI;
+        robotState.vitesseGaucheFromOdometry = delta_g*FREQ_ECH_QEI;
 
 
-         robotState.vitesseLineaireFromOdometry = (robotState.vitesseDroitFromOdometry + robotState.vitesseGaucheFromOdometry)/2 ;
-         robotState.vitesseAngulaireFromOdometry = delta_theta*FREQ_ECH_QEI;
+        robotState.vitesseLineaireFromOdometry = (robotState.vitesseDroitFromOdometry + robotState.vitesseGaucheFromOdometry)/2 ;
+        robotState.vitesseAngulaireFromOdometry = delta_theta*FREQ_ECH_QEI;
 
-         //Mise à jour du postionnement  terrain à t-1
-         robotState.xPosFromOdometry_1 = robotState.xPosFromOdometry ;
-         robotState.yPosFromOdometry_1 = robotState.yPosFromOdometry ;
+        //Mise à jour du postionnement  terrain à t-1
+        robotState.xPosFromOdometry_1 = robotState.xPosFromOdometry ;
+        robotState.yPosFromOdometry_1 = robotState.yPosFromOdometry ;
         robotState.angleRadianFromOdometry_1 = robotState.angleRadianFromOdometry ;
 
         //// Calcul des points dans les referentiel du terrain
         robotState.xPosFromOdometry = robotState.xPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry * cos(robotState.angleRadianFromOdometry_1);
         robotState.yPosFromOdometry = robotState.yPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry * sin(robotState.angleRadianFromOdometry_1);
-        robotState.angleRadianFromOdometry = robotState.angleRadianFromOdometry_1 + robotState.angleRadianFromOdometry_1;
+        robotState.angleRadianFromOdometry = robotState.angleRadianFromOdometry_1 + robotState.vitesseAngulaireFromOdometry;
         if ( robotState.angleRadianFromOdometry > PI )
             robotState.angleRadianFromOdometry -= 2*PI ;
         if ( robotState.angleRadianFromOdometry < -PI )

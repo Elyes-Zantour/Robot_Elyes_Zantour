@@ -18,15 +18,15 @@ union
             float distanceTelemetreDroit2;
             float distanceTelemetreGauche2;
             double vitesseDroitFromOdometry;
+            double vitesseGaucheFromOdometry;
             double vitesseLineaireFromOdometry;
             double vitesseAngulaireFromOdometry;
             double xPosFromOdometry_1;
             double yPosFromOdometry_1;
             double angleRadianFromOdometry_1;
-            double  angleRadianFromOdometry;
+            double angleRadianFromOdometry;
             double xPosFromOdometry;
-            double yPosFromOdometry;
-           double vitesseGaucheFromOdometry;
+            double yPosFromOdometry; 
         }
     ;}
 ;} 
