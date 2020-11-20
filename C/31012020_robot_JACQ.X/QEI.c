@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <p33EP512GM706.h>
+#include <math.h>
 #include "QEI.h"
 #include "Robot.h"
 #include "IO.h"
-#include <math.h>
 #include "UART_protocole.h"
 #include "Utilities.h"
+#include "timer.h"
 
 #define DISTROUES 281.2
 //#define PI 3.014159265358979323846264338327950288419716939937510582
@@ -80,7 +81,6 @@ void QEIUpdateData()
             robotState.angleRadianFromOdometry += 2*PI ;
         
         compteur++;
-        
         if(compteur == 25)
         {
             compteur = 0;
@@ -91,13 +91,13 @@ void QEIUpdateData()
     void SendPositionData()
     {
         unsigned char positionPayload[24] ;
-        getBytesFromInt32 ( positionPayload, 0,timestamp ) ;
-        getBytesFromFloat ( positionPayload, 4, (float) ( robotState.xPosFromOdometry )) ;
-        getBytesFromFloat ( positionPayload, 8,(float) ( robotState.yPosFromOdometry )) ;
-        getBytesFromFloat ( positionPayload, 12, (float) ( robotState.angleRadianFromOdometry )) ;
-        getBytesFromFloat ( positionPayload, 16,(float) ( robotState.vitesseLineaireFromOdometry)) ;
-        getBytesFromFloat ( positionPayload, 20, (float) ( robotState.vitesseAngulaireFromOdometry ) ) ;
-        UartEncodeAndSendMessage (POSITION_DATA, 24, positionPayload ) ;
+        getBytesFromInt32(positionPayload, 0, timestamp) ;
+        getBytesFromFloat(positionPayload, 4, (float)robotState.xPosFromOdometry);
+        getBytesFromFloat(positionPayload, 8, (float)robotState.yPosFromOdometry);
+        getBytesFromFloat(positionPayload, 12, (float)robotState.angleRadianFromOdometry);
+        getBytesFromFloat(positionPayload, 16, (float)robotState.vitesseLineaireFromOdometry);
+        getBytesFromFloat(positionPayload, 20, (float)robotState.vitesseAngulaireFromOdometry);
+        UartEncodeAndSendMessage (POSITION_DATA, 24, positionPayload) ;
     }
        
  

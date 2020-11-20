@@ -7,12 +7,10 @@
 #include "etats.h"
 #include "QEI.h"
 
-
-
 unsigned long timestamp;
 unsigned char toggle = 0;
 
-//Initialisation d?un timer 32 bits
+//Initialisation d'un timer 32 bits
 void InitTimer23(void) {
     T3CONbits.TON = 0; // Stop any 16-bit Timer3 operation
     T2CONbits.TON = 0; // Stop any 16/32-bit Timer3 operation
@@ -32,22 +30,22 @@ void InitTimer23(void) {
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
     {
         IFS0bits.T1IF = 0;
-        QEIUpdateData();   
+        QEIUpdateData();
     }
 
-// I n t e r r u p t i o n du time r 32 b i t s s u r 2?3
+//Interruption du timer 32 bits sur 23
 void __attribute__ (( interrupt, no_auto_psv )) _T3Interrupt(void) {
     IFS0bits.T3IF = 0 ; // Clear Timer3 Interrupt Flag
 }
 
 void __attribute__ (( interrupt, no_auto_psv )) _T4Interrupt(void) {
     IFS1bits.T4IF = 0 ; // Clear Timer3 Interrupt Flag
-    timestamp = timestamp+1;
-    OperatingSystemLoop();
+    timestamp++;
+    //OperatingSystemLoop();
     ADC1StartConversionSequence();
 }
 
-//Initialisation d?un timer 16 bits
+//Initialisation d'un timer 16 bits
 void InitTimer1(void)
     {
         //Timer1 pour horodater les mesures (1ms)

@@ -10,12 +10,11 @@
 #include "Robot.h"
 #include "ADC.h"
 #include "main.h"
-#include "Toolbox.h"
+#include "Utilities.h"
 
 unsigned char nextStateRobot=0;
 unsigned char stateRobot;
 int compteurInverseur=0;
-
 
 void OperatingSystemLoop(void) {
     if(JACK){
@@ -122,12 +121,11 @@ void OperatingSystemLoop(void) {
         }
         else
         {
-
-        PWMSetSpeedConsigne(0, MOTEUR_DROITE);
-        PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
-        LED_BLANCHE = 1;
-        LED_BLEUE = 0;
-        stateRobot = STATE_ATTENTE;   
+            PWMSetSpeedConsigne(0, MOTEUR_DROITE);
+            PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
+            LED_BLANCHE = 1;
+            LED_BLEUE = 0;
+            stateRobot = STATE_ATTENTE;   
         }
     }
             

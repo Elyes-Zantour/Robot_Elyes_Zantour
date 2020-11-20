@@ -1,10 +1,3 @@
-/* 
- * File:   QEI.h
- * Author: TP_EO_6
- *
- * Created on 20 novembre 2020, 10:00
- */
-
 #ifndef QEI_H
 #define	QEI_H
 

@@ -1,6 +1,6 @@
+#include <xc.h>
 #include "Utilities.h"
 #include "math.h"
-#include <xc.h>
 
 double Abs(double value)
 {
