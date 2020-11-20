@@ -5,6 +5,7 @@
 #include "CB_TX1.h"
 #include "UART.h"
 #include "UART_protocole.h"
+#include "IO.h"
 
  int msgDecodedFunction =0;
 int msgDecodedPayloadLength = 0;
@@ -110,7 +111,10 @@ unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsig
                     msgCalculatedChecksum = UartCalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
                     decodedFlag = 1;
                     if (msgDecodedChecksum == msgCalculatedChecksum)
+                    {
                         isCkecksumOk = 1;
+                        UartMessageProcessor(msgDecodedFunction, msgDecodedPayload);
+                    }
                     else
                         isCkecksumOk = 0;
                     break;
@@ -120,3 +124,14 @@ unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsig
                     break;
           }
     }
+     
+     void UartMessageProcessor (int msgFunction, unsigned char msgPayload[])
+     {
+         if(msgFunction == 0x0080)
+         {
+             if(msgPayload[2] == 'A')
+             {
+                 LED_ORANGE = !LED_ORANGE;
+             }
+         }
+     }

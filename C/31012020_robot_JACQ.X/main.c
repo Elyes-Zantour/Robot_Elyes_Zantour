@@ -38,10 +38,10 @@ int main(void) {
     while (1) {
         //LED_BLANCHE = !LED_BLANCHE;
         
-        if(compteurInverseur%2)
-            LED_ORANGE = 1;
-        else
-            LED_ORANGE = 0;
+        //if(compteurInverseur%2)
+            //LED_ORANGE = 1;
+        //else
+            //LED_ORANGE = 0;
             
         if(ADCIsConversionFinished())
             {
