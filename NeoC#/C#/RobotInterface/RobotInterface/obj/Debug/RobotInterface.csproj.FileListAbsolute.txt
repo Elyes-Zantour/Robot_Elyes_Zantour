@@ -79,3 +79,5 @@ C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\RobotInterface\obj\Debug\R
 C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\RobotInterface\obj\Debug\RobotInterface.csproj.CopyComplete
 C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\RobotInterface\obj\Debug\RobotInterface.exe
 C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\RobotInterface\obj\Debug\RobotInterface.pdb
+C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\RobotInterface\bin\Debug\Utilities.dll
+C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\RobotInterface\bin\Debug\Utilities.pdb

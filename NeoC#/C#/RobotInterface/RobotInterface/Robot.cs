@@ -4,12 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities;
 
 namespace RobotInterface
 {
     class Robot
     {
         public ConcurrentQueue<Message> messageQueue = new ConcurrentQueue<Message>();
+        public float timestamp;
+        public float positionXOdo;
+        public float positionYOdo;
+        public float positionThetaOdo;
+        public float vLin;
+        public float vAng;
+
+  
     }
 
     class Message

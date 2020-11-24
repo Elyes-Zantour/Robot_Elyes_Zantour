@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using ExtendedSerialPort;
 using System.Threading;
+using Utilities;
 
 namespace RobotInterface
 {
@@ -57,6 +58,7 @@ namespace RobotInterface
                         stringPayload += m.Payload[i].ToString("X2") + " ";
                     }
 
+                    textBoxReception.Text = "PosX : " + robot.positionXOdo + " PosY : " + robot.positionYOdo + " PosTheta : " + robot.positionThetaOdo + " vLin : " + robot.vLin + " vAng : " + robot.vAng;
                     TextBoxData.Text = "Fonction = " + msgDecodedFunction + " LongeurPayload = " + msgDecodedPayloadLength + " Payload = " + stringPayload + " Checksum = " + isChecksumOk;
                 }
             }
@@ -216,6 +218,7 @@ namespace RobotInterface
                     {
                         robot.messageQueue.Enqueue(new Message(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload));
                         isChecksumOk = 1;
+                        MessageProcessor(msgDecodedFunction, msgDecodedPayload, 24); //msgDecodedPayloadLength
                     }
                     else
                     {
@@ -228,6 +231,30 @@ namespace RobotInterface
                 default:
                     rcvState = StateReception.Waiting;
                     break;
+            }
+        }
+
+        private void MessageProcessor(UInt16 function, byte[] payload, byte length)
+        {
+            if (function == 0x0061)
+            {
+                //for() ?
+                byte[] tab = payload.GetRange(4, 4);
+                robot.positionXOdo = tab.GetFloat();
+
+                tab = payload.GetRange(8, 4);
+                robot.positionYOdo = tab.GetFloat();
+
+                tab = payload.GetRange(12, 4);
+                robot.positionThetaOdo = tab.GetFloat();
+
+                tab = payload.GetRange(16, 4);
+                robot.vLin = tab.GetFloat();
+
+                tab = payload.GetRange(20, 4);
+                robot.vAng = tab.GetFloat();
+
+                
             }
         }
     }
