@@ -1,5 +1,6 @@
 #ifndef IO_H
 #define IO_H
+#include "QEI.h"
 
 //Affectation des pins des LEDS
 #define JACK _RA1

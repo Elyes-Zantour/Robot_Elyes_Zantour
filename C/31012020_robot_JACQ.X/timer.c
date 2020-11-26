@@ -10,6 +10,7 @@
 unsigned long timestamp;
 unsigned char toggle = 0;
 
+
 //Initialisation d'un timer 32 bits
 void InitTimer23(void) {
     T3CONbits.TON = 0; // Stop any 16-bit Timer3 operation

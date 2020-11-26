@@ -17,6 +17,7 @@
 #include "QEI.h"
 #include "Utilities.h"
 
+
 int main(void) 
     {
         InitOscillator();
@@ -43,7 +44,17 @@ int main(void)
                     unsigned char c = CB_RX1_Get();
                     UartDecodeMessage(c);
                 }
+                
+                if (JACK){
+                    robotState.xPosFromOdometry=0;
+                    robotState.yPosFromOdometry=0;
+                    robotState.angleRadianFromOdometry=0;
+                    robotState.vitesseLineaireFromOdometry=0;
+                    robotState.vitesseAngulaireFromOdometry=0;
+                    LED_ORANGE =1;
+                }
             /*
+             * 
 
             LED_BLANCHE = !LED_BLANCHE;
 
