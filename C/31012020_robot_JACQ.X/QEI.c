@@ -9,7 +9,7 @@
 #include "Utilities.h"
 #include "timer.h"
 
-#define DISTROUES 0.2812
+//#define DISTROUES 0.2812
 //#define PI 3.014159265358979323846264338327950288419716939937510582
 #define FREQ_ECH_QEI 250
 #define POSITION_DATA 0x0061
@@ -55,7 +55,7 @@ void QEIUpdateData()
         delta_g = QeiGauchePosition - QeiGauchePosition_T_1; //Vg
 
         //calcul de theta
-        delta_theta = (delta_d - delta_g)/DISTROUES; //  vitesse angulaire
+        delta_theta = (delta_d - delta_g)/(DISTROUES); //  vitesse angulaire
         dx =(delta_d + delta_g)/2; // Vl
 
         //calcul des vitesses

@@ -239,6 +239,7 @@ namespace RobotInterface
             if (function == 0x0061)
             {
                 //for() ?
+
                 byte[] tab = payload.GetRange(4, 4);
                 robot.positionXOdo = tab.GetFloat();
 
@@ -246,7 +247,7 @@ namespace RobotInterface
                 robot.positionYOdo = tab.GetFloat();
 
                 tab = payload.GetRange(12, 4);
-                robot.positionThetaOdo = tab.GetFloat();
+                robot.positionThetaOdo = tab.GetFloat() * (float)(180/3.14159);
 
                 tab = payload.GetRange(16, 4);
                 robot.vLin = tab.GetFloat();
