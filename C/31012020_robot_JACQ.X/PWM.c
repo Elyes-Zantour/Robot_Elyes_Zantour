@@ -7,6 +7,9 @@
 #include "etats.h"
 
 #define PWMPER 40.0
+#define COEFF_VITESSE_LINEAIRE_PERCENT 1/25.
+#define COEFF_VITESSE_ANGULAIRE_PERCENT 1/50.
+
 unsigned char accelerationGauche = 10;
 unsigned char accelerationDroite = 10;
 unsigned char freinDroite = 7;
@@ -91,3 +94,10 @@ void PWMSetSpeedConsigne (float vitesseEnPourcents, char moteur)
     else if (moteur == MOTEUR_GAUCHE)
         robotState.vitesseGaucheConsigne = vitesseEnPourcents;
 }
+void PWMSetSpeedConsignePolaire() {
+// CorrectionAngulaire
+double erreurVitesseAngulaire =  ;
+double sortieCorrectionLineaire= ;
+double correctionVitesseAngulaire=;
+double correctionVitesseAngulairePourcent =  correctionVitesseAngulaire*COEFF_VITESSE_ANGULAIRE_PERCENT 1/50.;
+
