@@ -7,6 +7,7 @@
 #include "etats.h"
 #include "QEI.h"
 
+
 unsigned long timestamp;
 unsigned char toggle = 0;
 
@@ -64,6 +65,7 @@ void InitTimer1(void)
         T1CONbits.TON = 1; // Enable Timer
     
         SetFreqTimer1(250);
+        PWMSetSpeedConsignePolaire();
     }
 
 void InitTimer4(void)

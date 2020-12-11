@@ -27,6 +27,8 @@ union
             double angleRadianFromOdometry;
             double xPosFromOdometry;
             double yPosFromOdometry; 
+            double vitesseLineaireConsigne;
+            double vitesseAngulaireConsigne;
         }
     ;}
 ;} 

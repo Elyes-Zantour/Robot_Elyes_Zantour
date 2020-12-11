@@ -50,7 +50,7 @@ namespace RobotInterface
                 //Console.WriteLine("Nb Message dans la queue : " + robot.messageQueue.Count);
 
                 if (success)
-                { 
+                {
                     string stringPayload = "";
 
                     for (int i = 0; i < m.PayloadLength; i++)
@@ -101,7 +101,7 @@ namespace RobotInterface
             byte[] array = Encoding.ASCII.GetBytes(TestString);
             UartEncodeAndSendMessage(0x0080, 3, array);
         }
-    
+
         byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
         {
             byte cheksum = 0xFE;
@@ -115,10 +115,10 @@ namespace RobotInterface
             return cheksum;
         }
 
-       void UartEncodeAndSendMessage(ushort msgFunction, ushort msgPayloadLength, byte[] msgPayload)
+        void UartEncodeAndSendMessage(ushort msgFunction, ushort msgPayloadLength, byte[] msgPayload)
         {
             int i = 0, j = 0;
-            byte[] msg = new byte[ 6 + msgPayloadLength];
+            byte[] msg = new byte[6 + msgPayloadLength];
 
             msg[i++] = 0xFE;
 
@@ -158,12 +158,12 @@ namespace RobotInterface
         UInt16 msgDecodedPayloadLength = 0;
         int msgDecodedPayloadIndex = 0;
         int isChecksumOk = -1;
-        
+
         private void DecodeMessage(byte c)
         {
             Console.Write("0x" + c.ToString("X2") + " ");
             switch (rcvState)
-            {                
+            {
                 case StateReception.Waiting:
                     if (c == 0xFE)
                     {
@@ -172,7 +172,7 @@ namespace RobotInterface
                     break;
 
                 case StateReception.FunctionMSB:
-                    msgDecodedFunction = (UInt16)(c<<8);
+                    msgDecodedFunction = (UInt16)(c << 8);
                     rcvState = StateReception.FunctionLSB;
                     break;
 
@@ -182,7 +182,7 @@ namespace RobotInterface
                     break;
 
                 case StateReception.PayloadLengthMSB:
-                    msgDecodedPayloadLength = (UInt16)(c<<8);
+                    msgDecodedPayloadLength = (UInt16)(c << 8);
                     rcvState = StateReception.PayloadLengthLSB;
                     break;
 
@@ -207,12 +207,12 @@ namespace RobotInterface
                 case StateReception.Payload:
                     msgDecodedPayload[msgDecodedPayloadIndex++] = c;
                     if (msgDecodedPayloadIndex >= msgDecodedPayloadLength)
-                        rcvState = StateReception.CheckSum;                   
+                        rcvState = StateReception.CheckSum;
                     break;
 
-                case StateReception.CheckSum:                    
-                   msgDecodedChecksum = c;
-                   msgCalculatedChecksum = CalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
+                case StateReception.CheckSum:
+                    msgDecodedChecksum = c;
+                    msgCalculatedChecksum = CalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
                     //Console.WriteLine("CHECKSUM : " + msgCalculatedChecksum.ToString("X2"));
                     if (msgDecodedChecksum == msgCalculatedChecksum)
                     {
@@ -247,7 +247,7 @@ namespace RobotInterface
                 robot.positionYOdo = tab.GetFloat();
 
                 tab = payload.GetRange(12, 4);
-                robot.positionThetaOdo = tab.GetFloat() * (float)(180/3.14159);
+                robot.positionThetaOdo = tab.GetFloat() * (float)(180 / 3.14159);
 
                 tab = payload.GetRange(16, 4);
                 robot.vLin = tab.GetFloat();
@@ -255,10 +255,8 @@ namespace RobotInterface
                 tab = payload.GetRange(20, 4);
                 robot.vAng = tab.GetFloat();
 
-                
+                tblAsserv.UpdatePolarOdometrySpeed(robot.positionXOdo, robot.positionYOdo, robot.positionThetaOdo);
             }
         }
     }
 }
- 
-
