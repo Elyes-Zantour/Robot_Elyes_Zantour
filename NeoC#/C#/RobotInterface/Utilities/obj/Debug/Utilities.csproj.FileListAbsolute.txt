@@ -43,6 +43,6 @@ D:\qei\E&R_AxelAdrien_300120\lib lidar\Utilities\obj\Debug\Utilities.dll
 D:\qei\E&R_AxelAdrien_300120\lib lidar\Utilities\obj\Debug\Utilities.pdb
 C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\Utilities\bin\Debug\Utilities.dll
 C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\Utilities\bin\Debug\Utilities.pdb
-C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\Utilities\obj\Debug\Utilities.csprojAssemblyReference.cache
 C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\Utilities\obj\Debug\Utilities.dll
 C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\Utilities\obj\Debug\Utilities.pdb
+C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\Utilities\obj\Debug\Utilities.csprojAssemblyReference.cache

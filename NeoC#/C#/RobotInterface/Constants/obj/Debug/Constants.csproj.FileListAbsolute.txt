@@ -1,0 +1,4 @@
+C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\Constants\bin\Debug\Constants.dll
+C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\Constants\bin\Debug\Constants.pdb
+C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\Constants\obj\Debug\Constants.dll
+C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\Constants\obj\Debug\Constants.pdb

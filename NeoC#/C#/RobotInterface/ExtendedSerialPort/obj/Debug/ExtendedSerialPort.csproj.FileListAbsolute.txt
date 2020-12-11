@@ -14,3 +14,8 @@ C:\Users\TP-EO-5\Desktop\ExtendedSerialPort (3)\ExtendedSerialPort\bin\Debug\Ext
 C:\Users\TP-EO-5\Desktop\ExtendedSerialPort (3)\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.csprojAssemblyReference.cache
 C:\Users\TP-EO-5\Desktop\ExtendedSerialPort (3)\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.dll
 C:\Users\TP-EO-5\Desktop\ExtendedSerialPort (3)\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.pdb
+C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\ExtendedSerialPort\bin\Debug\ExtendedSerialPort.dll
+C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\ExtendedSerialPort\bin\Debug\ExtendedSerialPort.pdb
+C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.csprojAssemblyReference.cache
+C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.dll
+C:\GitHub\Robot_Elyes_Zantour\NeoC#\C#\RobotInterface\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.pdb
