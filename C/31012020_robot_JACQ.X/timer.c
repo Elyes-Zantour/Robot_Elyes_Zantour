@@ -7,7 +7,6 @@
 #include "etats.h"
 #include "QEI.h"
 
-
 unsigned long timestamp;
 unsigned char toggle = 0;
 
@@ -31,13 +30,16 @@ void InitTimer23(void) {
 }
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
     {
-        IFS0bits.T1IF = 0;
-        QEIUpdateData();
+         IFS0bits.T1IF = 0;
+         QEIUpdateData();
+         PWMSetSpeedConsignePolaire();
+         PWMUpdateSpeed();
     }
 
 //Interruption du timer 32 bits sur 23
 void __attribute__ (( interrupt, no_auto_psv )) _T3Interrupt(void) {
     IFS0bits.T3IF = 0 ; // Clear Timer3 Interrupt Flag
+    
 }
 
 void __attribute__ (( interrupt, no_auto_psv )) _T4Interrupt(void) {
@@ -65,7 +67,6 @@ void InitTimer1(void)
         T1CONbits.TON = 1; // Enable Timer
     
         SetFreqTimer1(250);
-        PWMSetSpeedConsignePolaire();
     }
 
 void InitTimer4(void)

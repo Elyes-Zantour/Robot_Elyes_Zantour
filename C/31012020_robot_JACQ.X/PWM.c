@@ -7,14 +7,16 @@
 #include "etats.h"
 
 #define PWMPER 40.0
-#define COEFF_VITESSE_LINEAIRE_PERCENT 1/25.
-#define COEFF_VITESSE_ANGULAIRE_PERCENT 1/50.
+#define COEFF_VITESSE_LINEAIRE_PERCENT 300
+#define COEFF_VITESSE_ANGULAIRE_PERCENT 22
 
 unsigned char accelerationGauche = 10;
 unsigned char accelerationDroite = 10;
 unsigned char freinDroite = 7;
 unsigned char freinGauche = 12;
-
+double kp=2;
+double ki=0;
+double kd=0;
 
 void InitPWM(void)
 {
@@ -98,15 +100,15 @@ void PWMSetSpeedConsigne (float vitesseEnPourcents, char moteur)
 
 void PWMSetSpeedConsignePolaire() {
 // CorrectionAngulaire
-double erreurVitesseAngulaire =  robotState.vitesseAngulaireConsigne-robotState.vitesseAngulaireFromOdometry ;
-double correctionVitesseAngulaire= P* erreurVitesseAngulaire ;
-double correctionVitesseAngulairePourcent =  correctionVitesseAngulaire* COEFF_VITESSE_ANGULAIRE_PERCENT ;
+float erreurVitesseAngulaire =  robotState.vitesseAngulaireConsigne-robotState.vitesseAngulaireFromOdometry ;
+float correctionVitesseAngulaire= Pangl * erreurVitesseAngulaire;
+float correctionVitesseAngulairePourcent =  correctionVitesseAngulaire* COEFF_VITESSE_ANGULAIRE_PERCENT ;
 
 //Correction Lineaire
 
-double erreurVitesseLineaire= robotState.vitesseLineaireConsigne - robotState.vitesseLineaireFromOdometry ;
-double correctionVitesseLineaire= P*erreurVitesseLineaire  ;
-double correctionLineairePourcent = correctionVitesseLineaire *COEFF_VITESSE_ANGULAIRE_PERCENT;
+float erreurVitesseLineaire= robotState.vitesseLineaireConsigne - robotState.vitesseLineaireFromOdometry ;
+float correctionVitesseLineaire= Plin * erreurVitesseLineaire ;
+float correctionLineairePourcent = correctionVitesseLineaire * COEFF_VITESSE_ANGULAIRE_PERCENT;
 
 //Generation des consignes droite et gauche 
 robotState.vitesseDroiteConsigne = correctionLineairePourcent + correctionVitesseAngulairePourcent*(DISTROUES/2);

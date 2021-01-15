@@ -30,6 +30,10 @@ int main(void)
         InitUART();
         InitQEI1();
         InitQEI2();
+        
+        robotState.vitesseAngulaireFromOdometry=0;
+        robotState.vitesseLineaireFromOdometry=0;
+                
         //SendMessageDirect ((unsigned char *) " Bonjour",7 ) ;
 
         //unsigned int *result = ADCGetResult();
@@ -37,12 +41,16 @@ int main(void)
         //float volts = 0;
 
         while (1) 
-            {
+            {   
+            
+
+                
                 int i ;
                 for ( i =0; i< CB_RX1_GetDataSize(); i++)
                 {
                     unsigned char c = CB_RX1_Get();
                     UartDecodeMessage(c);
+                 
                 }
                 
                 if (JACK){
@@ -52,11 +60,14 @@ int main(void)
                     robotState.vitesseLineaireFromOdometry=0;
                     robotState.vitesseAngulaireFromOdometry=0;
                     LED_ORANGE =1;
+                     
                 }
+                LED_BLANCHE =!LED_BLANCHE;
+                
             /*
              * 
 
-            LED_BLANCHE = !LED_BLANCHE;
+            LED_BLANCHE = 
 
             if(compteurInverseur%2)
                 LED_ORANGE = 1;
