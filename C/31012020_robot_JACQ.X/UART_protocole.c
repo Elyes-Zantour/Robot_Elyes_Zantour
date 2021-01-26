@@ -132,8 +132,8 @@ unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsig
          {
              if(msgPayload[0] == 1)
              {
-                 robotState.vitesseGaucheConsigne=70;
-                 robotState.vitesseDroiteConsigne=70;
+                 robotState.vitesseGaucheConsigne=45.8;
+                 robotState.vitesseDroiteConsigne=45.8;
              }
          }
      }
