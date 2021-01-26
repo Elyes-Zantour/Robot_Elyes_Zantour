@@ -1,3 +1,5 @@
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <xc.h>
@@ -30,9 +32,11 @@ int main(void)
         InitUART();
         InitQEI1();
         InitQEI2();
-        
-        robotState.vitesseAngulaireFromOdometry=0;
-        robotState.vitesseLineaireFromOdometry=0;
+//        PWMSetSpeedConsigne (10, MOTEUR_GAUCHE);
+//        PWMSetSpeedConsigne (10, MOTEUR_DROITE);
+         
+//        robotState.vitesseAngulaireFromOdometry=0;
+//        robotState.vitesseLineaireFromOdometry=0;
                 
         //SendMessageDirect ((unsigned char *) " Bonjour",7 ) ;
 
@@ -42,15 +46,13 @@ int main(void)
 
         while (1) 
             {   
-            
-
+                     
                 
                 int i ;
                 for ( i =0; i< CB_RX1_GetDataSize(); i++)
                 {
                     unsigned char c = CB_RX1_Get();
                     UartDecodeMessage(c);
-                 
                 }
                 
                 if (JACK){
@@ -59,10 +61,11 @@ int main(void)
                     robotState.angleRadianFromOdometry=0;
                     robotState.vitesseLineaireFromOdometry=0;
                     robotState.vitesseAngulaireFromOdometry=0;
-                    LED_ORANGE =1;
                      
                 }
                 LED_BLANCHE =!LED_BLANCHE;
+                
+               
                 
             /*
              * 
