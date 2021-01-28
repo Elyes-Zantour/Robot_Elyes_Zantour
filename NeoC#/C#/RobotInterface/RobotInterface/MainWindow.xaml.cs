@@ -25,6 +25,7 @@ namespace RobotInterface
         Robot robot = new Robot();
         DispatcherTimer timerAffichage;
         private ReliableSerialPort serialPort1;
+        bool TestFlag = false;
 
         public MainWindow()
         {
@@ -90,16 +91,17 @@ namespace RobotInterface
 
         private void buttonTest_Click(object sender, RoutedEventArgs e)
         {
-            //byte[] byteList = new byte[20];
-            //for (int i = 0; i < 20; i++)
-            //{
-            //    byteList[i] = (byte)(2 * i);
-            //}
-            //serialPort1.Write(byteList, 0, byteList.Count());
-
-            string TestString = "AAA";
-            byte[] array = Encoding.ASCII.GetBytes(TestString);
-            UartEncodeAndSendMessage(0x0080, 3, array);
+            TestFlag = !TestFlag;
+            if (TestFlag)
+            {
+                byte[] array = { 1 };
+                UartEncodeAndSendMessage(0x0040, 1, array);
+            }
+            else
+            {
+                byte[] array = { 0 };
+                UartEncodeAndSendMessage(0x0040, 1, array);
+            }
         }
 
         byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
@@ -238,8 +240,6 @@ namespace RobotInterface
         {
             if (function == 0x0061)
             {
-                //for() ?
-
                 byte[] tab = payload.GetRange(4, 4);
                 robot.positionXOdo = tab.GetFloat();
 
@@ -255,7 +255,32 @@ namespace RobotInterface
                 tab = payload.GetRange(20, 4);
                 robot.vAng = tab.GetFloat();
 
-                tblAsserv.UpdatePolarOdometrySpeed(robot.positionXOdo, robot.positionYOdo, robot.positionThetaOdo);
+                tblAsserv.UpdatePolarOdometrySpeed(robot.vLin, 0, robot.vAng);
+            }
+
+            if (function == 0x0050)
+            {
+                byte[] tab = payload.GetRange(0, 4);
+                robot.vLinCo = tab.GetFloat();
+
+                tab = payload.GetRange(4, 4);
+                robot.vAngCo = tab.GetFloat();
+
+                tab = payload.GetRange(8, 4);
+                robot.vLinPo = tab.GetFloat();
+
+                tab = payload.GetRange(12, 4);
+                robot.vAngPo = tab.GetFloat();
+
+                tab = payload.GetRange(16, 4);
+                robot.errLin = tab.GetFloat();
+
+                tab = payload.GetRange(20, 4);
+                robot.errAng = tab.GetFloat();
+
+                tblAsserv.UpdatePolarSpeedConsigneValues(robot.vLinCo, 0, robot.vAngCo);
+                tblAsserv.UpdatePolarSpeedCommandValues(robot.vLinPo, 0, robot.vAngPo);
+                tblAsserv.UpdatePolarSpeedErrorValues(robot.errLin, 0, robot.errAng);
             }
         }
     }

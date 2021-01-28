@@ -19,7 +19,7 @@ union
             float distanceTelemetreGauche2;
             float vitesseDroitFromOdometry;
             float vitesseGaucheFromOdometry;
-            float  vitesseLineaireFromOdometry;
+            float vitesseLineaireFromOdometry;
             float vitesseAngulaireFromOdometry;
             float xPosFromOdometry_1;
             float yPosFromOdometry_1;
@@ -29,6 +29,20 @@ union
             float yPosFromOdometry; 
             float vitesseLineaireConsigne;
             float vitesseAngulaireConsigne;
+            float erreurVitesseLineaire;
+            float erreurVitesseAngulaire;
+            float correctionVitesseAngulaire;
+            float correctionVitesseAngulairePourcent;
+            float correctionVitesseLineaire;
+            float correctionLineairePourcent;
+            float corrPropLin;
+            float corrIntLin;
+            float corrPropAng;
+            float corrIntAng;
+            float vitesseAngulaireCommande;
+            float vitesseLineaireCommande;
+            float lineaireSortie;
+            float angulaireSortie;
         }
     ;}
 ;} 

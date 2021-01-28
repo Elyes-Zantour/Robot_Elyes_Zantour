@@ -6,8 +6,13 @@
 #include "UART.h"
 #include "UART_protocole.h"
 #include "IO.h"
+#include "Robot.h"
+#include "PWM.h"
+#include "Utilities.h"
 
- int msgDecodedFunction =0;
+
+
+int msgDecodedFunction =0;
 int msgDecodedPayloadLength = 0;
 unsigned char msgDecodedPayload [128];
 int msgDecodedPayloadIndex = 0;
@@ -15,6 +20,7 @@ int decodedFlag =0;
 unsigned char msgDecodedChecksum;
 unsigned char msgCalculatedChecksum;
 int  isCkecksumOk=-1;
+int flag = 0;
      
 
 enum StateReception
@@ -76,7 +82,7 @@ unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsig
                     break;
 
                 case FunctionMSB:
-                    msgDecodedFunction += c;
+                    msgDecodedFunction = c;
                     msgDecodedFunction <<= 8;
                     rcvState = FunctionLSB;
                     break;
@@ -87,7 +93,7 @@ unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsig
                     break;
 
                 case PayloadLengthMSB:
-                    msgDecodedPayloadLength += c;
+                    msgDecodedPayloadLength = c;
                     msgDecodedPayloadLength <<= 8;
                     rcvState = PayloadLengthLSB;
                     break;
@@ -97,13 +103,16 @@ unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsig
                     if (msgDecodedPayloadLength == 0)
                         rcvState = CheckSum;
                     else
+                    {
                         rcvState = Payload;
+                        msgDecodedPayloadIndex = 0;
+                    }
                     break;
 
                 case Payload:
                     msgDecodedPayload[msgDecodedPayloadIndex++] = c;
                     if (msgDecodedPayloadIndex == msgDecodedPayloadLength)
-                        rcvState =CheckSum;
+                        rcvState = CheckSum;
                     break;
 
                 case CheckSum:
@@ -117,6 +126,8 @@ unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsig
                     }
                     else
                         isCkecksumOk = 0;
+                    
+                    rcvState = Waiting;
                     break;
 
                 default:
@@ -127,16 +138,10 @@ unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsig
      
      void UartMessageProcessor (int msgFunction, unsigned char msgPayload[])
      {
-         if(msgFunction == 0x0080)
-         {
-             if(msgPayload[2] == 'A')
-             {
-<<<<<<< HEAD
-                 robotState.vitesseGaucheConsigne=45.8;
-                 robotState.vitesseDroiteConsigne=45.8;
-=======
-                 LED_ORANGE = !LED_ORANGE;
->>>>>>> parent of 5c99128... OUI
-             }
-         }
+         if(msgFunction == 0x0040)
+         { 
+            robotState.vitesseLineaireConsigne = msgPayload[0];
+         }  
      }
+     
+   

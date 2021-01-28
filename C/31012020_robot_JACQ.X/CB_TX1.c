@@ -52,9 +52,9 @@ else
 }
 void SendOne ( )
 {
-isTransmitting = 1 ;
-unsigned char value=CB_TX1_Get() ;
-U1TXREG = value ; // Transmit one character
+    isTransmitting = 1 ;
+    unsigned char value=CB_TX1_Get() ;
+    U1TXREG = value ; // Transmit one character
 }
 unsigned char CB_TX1_IsTranmitting ( void)
 {

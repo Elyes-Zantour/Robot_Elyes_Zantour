@@ -5,6 +5,7 @@
 #include "Robot.h"
 #include "ToolBox.h"
 #include "etats.h"
+#include "QEI.h"
 
 #define PWMPER 40.0
 #define COEFF_VITESSE_LINEAIRE_PERCENT 300
@@ -98,21 +99,34 @@ void PWMSetSpeedConsigne (float vitesseEnPourcents, char moteur)
 }
 
 
-void PWMSetSpeedConsignePolaire() {
-// CorrectionAngulaire
-float erreurVitesseAngulaire =  robotState.vitesseAngulaireConsigne-robotState.vitesseAngulaireFromOdometry ;
-float correctionVitesseAngulaire= Pangl * erreurVitesseAngulaire;
-float correctionVitesseAngulairePourcent =  correctionVitesseAngulaire* COEFF_VITESSE_ANGULAIRE_PERCENT ;
-
-//Correction Lineaire
-
-float erreurVitesseLineaire= robotState.vitesseLineaireConsigne - robotState.vitesseLineaireFromOdometry ;
-float correctionVitesseLineaire= Plin * erreurVitesseLineaire ;
-float correctionLineairePourcent = correctionVitesseLineaire * COEFF_VITESSE_ANGULAIRE_PERCENT;
-
-//Generation des consignes droite et gauche 
-robotState.vitesseDroiteConsigne = correctionLineairePourcent + correctionVitesseAngulairePourcent*(DISTROUES/2);
-robotState.vitesseDroiteConsigne = LimitToInterval(robotState.vitesseDroiteConsigne,-100,100 ) ;
-robotState.vitesseGaucheConsigne = correctionLineairePourcent - correctionVitesseAngulairePourcent*(DISTROUES/2) ;
-robotState.vitesseGaucheConsigne = LimitToInterval(robotState.vitesseGaucheConsigne,-100,100) ;
+void PWMSetSpeedConsignePolaire() 
+    {
+        
+        
+         robotState.erreurVitesseAngulaire =  robotState.vitesseAngulaireConsigne-robotState.vitesseAngulaireFromOdometry ;
+         robotState.corrPropAng= Pang * robotState.erreurVitesseAngulaire;
+         robotState.corrIntAng=((Iang*robotState.erreurVitesseAngulaire)/FREQ_ECH_QEI)+robotState.corrIntAng;
+         robotState.vitesseAngulaireCommande = robotState.corrPropAng+robotState.corrIntAng;
+         robotState.correctionVitesseAngulairePourcent =  robotState.correctionVitesseAngulaire* COEFF_VITESSE_ANGULAIRE_PERCENT ;
+ 
+        //Correction Lineaire
+         robotState.erreurVitesseLineaire = robotState.vitesseLineaireConsigne - robotState.vitesseLineaireFromOdometry;
+         robotState.corrPropLin = Plin * robotState.erreurVitesseLineaire;
+         robotState.corrIntLin=((Ilin*robotState.erreurVitesseLineaire)/FREQ_ECH_QEI)+robotState.corrIntLin;
+         robotState.vitesseLineaireCommande = robotState.corrPropLin+robotState.corrIntLin;
+         robotState.correctionLineairePourcent = robotState.vitesseLineaireCommande * COEFF_VITESSE_ANGULAIRE_PERCENT;
+        
+    
+        //boucle ouverte, commande = consigne
+        //robotState.vitesseLineaireCommande = robotState.vitesseLineaireConsigne; 
+    
+        //fonction de tranfert (k = pourcentVitesse)
+        robotState.lineaireSortie = robotState.vitesseLineaireCommande * pourcentVitesse ;
+        robotState.angulaireSortie= robotState.vitesseAngulaireCommande * pourcentVitesse ;
+        
+        //Generation des consignes - sans l'angulaire
+        robotState.vitesseDroiteConsigne = -(robotState.lineaireSortie+robotState.angulaireSortie*DISTROUES/2);
+        robotState.vitesseDroiteConsigne = LimitToInterval(robotState.vitesseDroiteConsigne,-100,100);
+        robotState.vitesseGaucheConsigne = robotState.lineaireSortie-robotState.angulaireSortie*DISTROUES/2;
+        robotState.vitesseGaucheConsigne = LimitToInterval(robotState.vitesseGaucheConsigne,-100,100);
 }

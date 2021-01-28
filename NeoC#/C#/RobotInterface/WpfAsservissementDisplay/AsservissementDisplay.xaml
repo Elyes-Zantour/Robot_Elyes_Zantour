@@ -39,14 +39,14 @@
             <Border BorderBrush="#AAAAAA" BorderThickness="1" Grid.Row="6" Grid.ColumnSpan="8"/>
             <Border BorderBrush="#AAAAAA" BorderThickness="1" Grid.Row="7" Grid.ColumnSpan="8"/>
 
-            <Label x:Name="LabelTitre" Content="Asserv en ..." Foreground="White" Margin="0" Padding="0" ></Label>
+            <Label x:Name="LabelTitre" Content="Asserv en v" Foreground="White" Margin="0" Padding="0" ></Label>
             <Label Grid.Row="1" Content="Consigne : " Foreground="White"  Margin="0" Padding="0"></Label>
             <Label Grid.Row="2" Content="Measure : " Foreground="White"  Margin="0" Padding="0"></Label>
             <Label Grid.Row="3" Content="Error : " Foreground="White"  Margin="0" Padding="0"></Label>
             <Label Grid.Row="4" Content="Command : " Foreground="White"  Margin="0" Padding="0"></Label>
-            <Label Grid.Column="1" Content="X" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
-            <Label Grid.Column="2" Content="Y" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
-            <Label Grid.Column="3" Content="Theta" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
+            <Label Grid.Column="1" Content="vLin&#xD;&#xA;" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
+            <Label Grid.Column="2" Content="?" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
+            <Label Grid.Column="3" Content="vAng" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
             <Label Grid.Column="4" Content="M1" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
             <Label Grid.Column="5" Content="M2" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
             <Label Grid.Column="6" Content="M3" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>

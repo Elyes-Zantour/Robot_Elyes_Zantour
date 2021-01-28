@@ -9,8 +9,11 @@ void PWMSetSpeedConsignePolaire(void);
 
 #define MOTEUR_DROITE 0
 #define MOTEUR_GAUCHE 1
-#define Plin 10
-#define Pangl 2
 
+#define pourcentVitesse 27;
+#define Plin 5 //6.5 
+#define Ilin 105
+#define Pang 5
+#define Iang 105
 
 #endif	/* PWM_H */

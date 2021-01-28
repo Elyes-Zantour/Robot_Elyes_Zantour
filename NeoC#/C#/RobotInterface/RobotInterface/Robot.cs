@@ -18,7 +18,14 @@ namespace RobotInterface
         public float vLin;
         public float vAng;
 
-  
+        public float vLinCo;
+        public float vAngCo;
+        public float vLinPo;
+        public float vAngPo;
+        public float errLin;
+        public float errAng;
+
+
     }
 
     class Message
