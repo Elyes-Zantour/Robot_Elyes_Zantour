@@ -97,8 +97,9 @@ namespace RobotInterface
             //}
             //serialPort1.Write(byteList, 0, byteList.Count());
 
-            byte[] array = {1};
-            UartEncodeAndSendMessage(0x0040, 1, array);
+            string TestString = "AAA";
+            byte[] array = Encoding.ASCII.GetBytes(TestString);
+            UartEncodeAndSendMessage(0x0080, 3, array);
         }
 
         byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
@@ -256,11 +257,6 @@ namespace RobotInterface
 
                 tblAsserv.UpdatePolarOdometrySpeed(robot.positionXOdo, robot.positionYOdo, robot.positionThetaOdo);
             }
-        }
-
-        private void textBoxEmission_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

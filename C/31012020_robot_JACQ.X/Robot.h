@@ -19,7 +19,7 @@ union
             float distanceTelemetreGauche2;
             float vitesseDroitFromOdometry;
             float vitesseGaucheFromOdometry;
-            float vitesseLineaireFromOdometry;
+            float  vitesseLineaireFromOdometry;
             float vitesseAngulaireFromOdometry;
             float xPosFromOdometry_1;
             float yPosFromOdometry_1;

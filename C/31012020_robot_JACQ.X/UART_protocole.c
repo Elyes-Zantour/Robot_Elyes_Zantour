@@ -6,7 +6,6 @@
 #include "UART.h"
 #include "UART_protocole.h"
 #include "IO.h"
-#include "Robot.h"
 
  int msgDecodedFunction =0;
 int msgDecodedPayloadLength = 0;
@@ -128,12 +127,16 @@ unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsig
      
      void UartMessageProcessor (int msgFunction, unsigned char msgPayload[])
      {
-         if(msgFunction == 0x0040)
+         if(msgFunction == 0x0080)
          {
-             if(msgPayload[0] == 1)
+             if(msgPayload[2] == 'A')
              {
+<<<<<<< HEAD
                  robotState.vitesseGaucheConsigne=45.8;
                  robotState.vitesseDroiteConsigne=45.8;
+=======
+                 LED_ORANGE = !LED_ORANGE;
+>>>>>>> parent of 5c99128... OUI
              }
          }
      }
